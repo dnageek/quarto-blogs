@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Claude_code_first_try/index.html",
       "/posts/Use_visual_edit_quarto/index.html",
       "/posts/First_test_post/index.html"
     ]

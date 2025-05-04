@@ -2,15 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://dnageek.github.io/quarto-blogs/posts/Use_visual_edit_quarto/index.html</loc>
-    <lastmod>2025-05-04T17:53:56.372Z</lastmod>
+    <lastmod>2025-05-04T18:04:47.400Z</lastmod>
   </url>
   <url>
-    <loc>https://dnageek.github.io/quarto-blogs/index.html</loc>
-    <lastmod>2025-05-04T14:22:07.282Z</lastmod>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/Claude_code_first_try/index.html</loc>
+    <lastmod>2025-05-04T18:07:39.431Z</lastmod>
   </url>
   <url>
     <loc>https://dnageek.github.io/quarto-blogs/about.html</loc>
     <lastmod>2025-05-04T14:25:27.147Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dnageek.github.io/quarto-blogs/index.html</loc>
+    <lastmod>2025-05-04T14:22:07.282Z</lastmod>
   </url>
   <url>
     <loc>https://dnageek.github.io/quarto-blogs/posts/First_test_post/index.html</loc>

@@ -7,11 +7,25 @@
     "text": "Use visual editor mode\nI know you like writing Markdowns in terminals, but sometimes a visual editor is helpful, for example:\n\nyou can add an image very easily, simply like using word, you can screenshot and paste, the editor will generate a folder, place the picture in and write the link in your document in a second:\n\nYou can edit table easily, do you sometimes find yourself counting the “|”s?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCol1\nCol2\nCol3\nCol4\nCol5\nCol6\nCol7\nCol8\nCol9\nCol10\n\n\n\n\n\n\nmany\n\n\n\n\n\n\n\n\n\n\n\n\nempty\n\ncells\n\nyou\nknow\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwhat\n\n\nI\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nmean\n\n\n\n\nCitations can be added too(De Carvalho and Vartanian 2024), a references.bib will be added and managed by the editor\n\nActually very cool, and you can switch between text editor and visual editor very easily (Ctrl + Shift + F4), see more details on Quarto’s documentation\n\n\nPublish to GitHub Pages\nThere is a good guidance at [Quarto]{https://quarto.org/docs/publishing/github-pages.html} on how to publish automatically to GitHub Pages. One error I ran into was: my Git functions worked well but “quarto publish gh-pages” didn’t work. In that case, check if you have passphrase associated with your ssh key. This can be fixed following this post\n\n\n\n\n\nReferences\n\nDe Carvalho, Aline Martins, and Daniel Vartanian. 2024. “Quarto Website.” https://doi.org/10.17605/OSF.IO/XY4N7."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "R-code-Snippets",
+    "objectID": "posts/Claude_code_first_try/index.html",
+    "href": "posts/Claude_code_first_try/index.html",
+    "title": "Trying Claude Code",
     "section": "",
-    "text": "A few tips for Quarto\n\n\n\nrmarkdown\n\nQuarto\n\n\n\n\n\n\n\n\n\nMay 4, 2025\n\n\nJie Wu\n\n\n\n\n\n\n\n\n\n\n\n\nLet me try Quarto and the first post\n\n\n\nQuarto\n\n\n\n\n\n\n\n\n\nMay 3, 2025\n\n\nJie Wu\n\n\n\n\n\nNo matching items"
+    "text": "The other day I tried to install Claude Code and made a web app, it was fun. Here are my steps and take-aways:"
+  },
+  {
+    "objectID": "posts/Claude_code_first_try/index.html#steps-ive-taken",
+    "href": "posts/Claude_code_first_try/index.html#steps-ive-taken",
+    "title": "Trying Claude Code",
+    "section": "Steps I’ve taken",
+    "text": "Steps I’ve taken\n\nStarted an EC2 t3.medium instance, all settings are default\nInstalled Claude Code as instructed by its manual\nStarted to prompt within claude code to build the app\nof course, track the folder in github and host the web app on github.io\n\nAll straightforward, just followed their documentations"
+  },
+  {
+    "objectID": "posts/Claude_code_first_try/index.html#take-aways",
+    "href": "posts/Claude_code_first_try/index.html#take-aways",
+    "title": "Trying Claude Code",
+    "section": "Take-aways",
+    "text": "Take-aways\n\nWith Claude Code, from scratch, I was able to build a working app with three functions within a few hours and a few bucks!\nI am new to building web apps with javascript, or using openai api, or using puter.js (never heard of it until today), but it didn’t seem to matter\nI do need to break down the tasks into smaller pieces, sometimes give clear directions, for example:\n\nexplictly asked Claude Code to study the chat function from Puter.js to make sure it understands the function\nwent in the log to figure out the exact error, and then taught Claude Code the structure of the return value of the chat function\n\nThe cost was about 7 bucks, but it will stack up quickly if the code gets fat!"
   },
   {
     "objectID": "about.html",
@@ -19,6 +33,13 @@
     "title": "About",
     "section": "",
     "text": "About this blog"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "R-code-Snippets",
+    "section": "",
+    "text": "Trying Claude Code\n\n\n\nClaude Code\n\n\n\n\n\n\n\n\n\nMay 4, 2025\n\n\nYour Name\n\n\n\n\n\n\n\n\n\n\n\n\nA few tips for Quarto\n\n\n\nrmarkdown\n\nQuarto\n\n\n\n\n\n\n\n\n\nMay 4, 2025\n\n\nJie Wu\n\n\n\n\n\n\n\n\n\n\n\n\nLet me try Quarto and the first post\n\n\n\nQuarto\n\n\n\n\n\n\n\n\n\nMay 3, 2025\n\n\nJie Wu\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/First_test_post/index.html",
