@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jie Wu">
+<meta name="dcterms.date" content="2025-05-04">
 
-<title>DNA-Geek’s Playground</title>
+<title>Tidyverse: Read Data – DNA-Geek’s Playground</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +25,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,35 +69,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <!-- Google tag (gtag.js) -->
 
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BTXN919NM0"></script>
@@ -116,37 +87,8 @@ ul.task-list li input[type="checkbox"] {
 
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -156,7 +98,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DNA-Geek’s Playground</span>
     </a>
   </div>
@@ -167,7 +109,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -190,61 +132,58 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">DNA-Geek’s Playground</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Tidyverse: Read Data</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Tidyverse</div>
+                <div class="quarto-category">Data Science</div>
+                <div class="quarto-category">R Programming</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Jie Wu </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 4, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Q2xhdWRlJTIwQ29kZQ==">Claude Code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YSUyMFNjaWVuY2U=">Data Science <span class="quarto-category-count">(2)</span></div><div class="category" data-category="UXVhcnRv">Quarto <span class="quarto-category-count">(2)</span></div><div class="category" data-category="UiUyMFByb2dyYW1taW5n">R Programming <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cm1hcmtkb3du">rmarkdown <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGlkeXZlcnNl">Tidyverse <span class="quarto-category-count">(2)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#summarized-by-chatgpt" id="toc-summarized-by-chatgpt" class="nav-link active" data-scroll-target="#summarized-by-chatgpt">Summarized by ChatGPT</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="VGlkeXZlcnNlJTJDRGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmc=" data-listing-date-sort="1746402300000" data-listing-file-modified-sort="1746402613701" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2477">
-<div class="thumbnail"><a href="./posts/5_Tidyverse_read_data/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/5_Tidyverse_read_data/index.html" class="no-external">Tidyverse: Read Data</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('VGlkeXZlcnNl'); return false;">Tidyverse</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/5_Tidyverse_read_data/index.html" class="no-external">
-
-
+<section id="summarized-by-chatgpt" class="level1">
+<h1>Summarized by ChatGPT</h1>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 9%">
@@ -276,149 +215,190 @@ window.Quarto = {
 <tr class="odd">
 <td></td>
 <td><code>read_delim()</code></td>
-<td>Read…</td><td></td></tr><tr class="even"><td></td><td><code></code></td><td></td><td><code></code></td></tr><tr class="odd"><td></td><td><code></code></td><td></td><td><code></code></td></tr><tr class="even"><td></td><td><code></code></td><td></td><td></td></tr><tr class="odd"><td></td><td><code></code></td><td></td><td></td></tr><tr class="even"><td></td><td><code></code><code></code></td><td></td><td><code></code></td></tr><tr class="odd"><td></td><td><code></code></td><td></td><td></td></tr><tr class="even"><td><strong></strong></td><td><code></code></td><td></td><td><code></code><code></code></td></tr><tr class="odd"><td><strong></strong></td><td><code></code></td><td></td><td><code></code><code></code></td></tr><tr class="even"><td></td><td><code></code></td><td></td><td><code></code></td></tr><tr class="odd"><td></td><td><code></code></td><td></td><td><code></code></td></tr><tr class="even"><td><strong></strong></td><td><code></code></td><td></td><td><code></code></td></tr><tr class="odd"><td></td><td><code></code></td><td></td><td><code></code></td></tr><tr class="even"><td></td><td><code></code></td><td></td><td></td></tr><tr class="odd"><td></td><td><code></code></td><td></td><td></td></tr><tr class="even"><td></td><td><code></code></td><td></td><td></td></tr><tr class="odd"><td></td><td><code></code><code></code></td><td></td><td></td></tr><tr class="even"><td></td><td><code></code></td><td></td><td></td></tr><tr class="odd"><td></td><td><code></code></td><td></td><td></td></tr><tr class="even"><td><strong></strong></td><td><code></code><code></code></td><td></td><td></td></tr><tr class="odd"><td></td><td><code></code></td><td></td><td></td></tr><tr class="even"><td></td><td><code></code></td><td></td><td></td></tr><tr class="odd"><td></td><td><code></code></td><td></td><td></td></tr><tr class="even"><td></td><td><code></code></td><td></td><td></td></tr><tr class="odd"><td><strong></strong></td><td><code></code></td><td><code></code></td><td></td></tr><tr class="even"><td></td><td><code></code></td><td></td><td></td></tr><tr class="odd"><td></td><td><code></code></td><td></td><td></td></tr><tr class="even"><td></td><td><code></code></td><td></td><td></td></tr><tr class="odd"><td></td><td><code></code></td><td></td><td><code></code><code></code></td></tr><tr class="even"><td></td><td><code></code></td><td></td><td><code></code></td></tr></tbody></table>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/5_Tidyverse_read_data/index.html" class="no-external">
-<div class="listing-date">
-May 4, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="RGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmclMkNUaWR5dmVyc2U=" data-listing-date-sort="1746395700000" data-listing-file-modified-sort="1746401534462" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="157">
-<div class="thumbnail"><a href="./posts/4_Tidyverse_intro/index.html" class="no-external">
+<td>Read delimited text files</td>
+<td>Custom delimiter</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>read_fwf()</code></td>
+<td>Read fixed-width text files</td>
+<td><code>.txt</code>, structured text</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>read_table()</code></td>
+<td>Read whitespace-separated files</td>
+<td><code>.txt</code>, space-separated</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>read_lines()</code></td>
+<td>Read lines as character vector</td>
+<td>Raw text</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>read_file()</code></td>
+<td>Read entire file as one string</td>
+<td>Raw text</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>read_rds()</code> / <code>write_rds()</code></td>
+<td>Read/write R serialized objects</td>
+<td><code>.rds</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>type_convert()</code></td>
+<td>Guess and convert column types</td>
+<td>Tibble/data frame</td>
+</tr>
+<tr class="even">
+<td><strong>readxl</strong></td>
+<td><code>read_excel()</code></td>
+<td>Read Excel files</td>
+<td><code>.xls</code>, <code>.xlsx</code></td>
+</tr>
+<tr class="odd">
+<td><strong>haven</strong></td>
+<td><code>read_spss()</code></td>
+<td>Import SPSS data</td>
+<td><code>.sav</code>, <code>.zsav</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>read_stata()</code></td>
+<td>Import Stata data</td>
+<td><code>.dta</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>read_sas()</code></td>
+<td>Import SAS data</td>
+<td><code>.sas7bdat</code></td>
+</tr>
+<tr class="even">
+<td><strong>xml2</strong></td>
+<td><code>read_xml()</code></td>
+<td>Parse XML</td>
+<td><code>.xml</code>, XML string/URL</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>read_html()</code></td>
+<td>Parse HTML</td>
+<td><code>.html</code>, HTML string/URL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>xml_find_all()</code></td>
+<td>Find all nodes via XPath</td>
+<td>XPath expression</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>xml_find_first()</code></td>
+<td>Find first matching node</td>
+<td>XPath expression</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>xml_text()</code></td>
+<td>Extract text content</td>
+<td>XML/HTML node</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>xml_attr()</code> / <code>xml_attrs()</code></td>
+<td>Extract attribute(s)</td>
+<td>XML/HTML node</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>xml_children()</code></td>
+<td>Get child nodes</td>
+<td>XML/HTML node</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>xml_structure()</code></td>
+<td>Display tree structure</td>
+<td>XML/HTML document</td>
+</tr>
+<tr class="even">
+<td><strong>httr</strong></td>
+<td><code>GET()</code> / <code>POST()</code></td>
+<td>Make HTTP requests</td>
+<td>API endpoints, web URLs</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>content()</code></td>
+<td>Extract content from response</td>
+<td>Parsed text, JSON, XML, raw</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>status_code()</code></td>
+<td>Check HTTP response code</td>
+<td>HTTP response object</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>add_headers()</code></td>
+<td>Add custom headers to request</td>
+<td>Authorization, content-type, etc.</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>authenticate()</code></td>
+<td>Add basic authentication credentials</td>
+<td>Username/password</td>
+</tr>
+<tr class="odd">
+<td><strong>rvest</strong></td>
+<td><code>read_html()</code></td>
+<td>(Wraps <code>xml2::read_html()</code>)</td>
+<td>Web page scraping</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>html_nodes()</code></td>
+<td>Select multiple HTML elements (CSS/XPath)</td>
+<td>CSS or XPath selector</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>html_node()</code></td>
+<td>Select a single HTML element</td>
+<td>CSS or XPath selector</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>html_text()</code></td>
+<td>Extract visible text</td>
+<td>HTML node</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>html_attr()</code></td>
+<td>Extract attribute value</td>
+<td>HTML tag attribute (e.g., <code>href</code>, <code>src</code>)</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>html_table()</code></td>
+<td>Extract HTML tables into tibbles</td>
+<td><code>&lt;table&gt;</code> elements</td>
+</tr>
+</tbody>
+</table>
 
-<p class="card-img-top"><img src="posts\4_Tidyverse_intro\images\paste-1.png"  class="thumbnail-image card-img"/></p>
 
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/4_Tidyverse_intro/index.html" class="no-external">Tidyverse Introduction</a>
-</h3>
-<div class="listing-categories">
+</section>
 
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VGlkeXZlcnNl'); return false;">Tidyverse</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/4_Tidyverse_intro/index.html" class="no-external">
-There are many blogs or articles describing why using Tidyverse rather than the traditional R coding, for example
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/4_Tidyverse_intro/index.html" class="no-external">
-<div class="listing-date">
-May 4, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Q2xhdWRlJTIwQ29kZQ==" data-listing-date-sort="1746382500000" data-listing-file-modified-sort="1746387295218" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="227">
-<div class="thumbnail"><a href="./posts/3_Claude_code_first_try/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\3_Claude_code_first_try\images\paste-1.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/3_Claude_code_first_try/index.html" class="no-external">Trying Claude Code</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Q2xhdWRlJTIwQ29kZQ=='); return false;">Claude Code</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/3_Claude_code_first_try/index.html" class="no-external">
-The other day I tried to install Claude Code and made a web app, it was fun. Here are my steps and take-aways:
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/3_Claude_code_first_try/index.html" class="no-external">
-<div class="listing-date">
-May 4, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="cm1hcmtkb3duJTJDUXVhcnRv" data-listing-date-sort="1746364500000" data-listing-file-modified-sort="1746381887400" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="541">
-<div class="thumbnail"><a href="./posts/2_Use_visual_edit_quarto/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\2_Use_visual_edit_quarto\images\paste-3.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2_Use_visual_edit_quarto/index.html" class="no-external">A few tips for Quarto</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cm1hcmtkb3du'); return false;">rmarkdown</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UXVhcnRv'); return false;">Quarto</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/2_Use_visual_edit_quarto/index.html" class="no-external">
-I know you like writing Markdowns in terminals, but sometimes a visual editor is helpful, for example:
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/2_Use_visual_edit_quarto/index.html" class="no-external">
-<div class="listing-date">
-May 4, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="UXVhcnRv" data-listing-date-sort="1746244800000" data-listing-file-modified-sort="1746380423992" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="448">
-<div class="thumbnail"><a href="./posts/1_First_test_post/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/1_First_test_post/index.html" class="no-external">Let me try Quarto and the first post</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UXVhcnRv'); return false;">Quarto</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/1_First_test_post/index.html" class="no-external">
-Today, I was thinking about how to organize my code snippets (in R or shell scripts) so I can quickly reuse them when needed. Of course, we have amazing AI tools like Claude…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/1_First_test_post/index.html" class="no-external">
-<div class="listing-date">
-May 3, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
