@@ -1,0 +1,32 @@
+---
+title: "A few tips for Quarto"
+author: "Jie Wu"
+date: "2025-05-03"
+categories: [rmarkdown, Quarto]
+tags: [rmarkdown, Quarto]
+bibliography: references.bib
+---
+
+# Use visual editor mode
+
+I know you like writing Markdowns in terminals, but sometimes a visual editor is helpful, for example:
+
+-   you can add an image very easily, simply like using word, you can screenshot and paste, the editor will generate a folder, place the picture in and write the link in your document in a second:
+
+    ![](images/paste-3.png)
+
+-   You can edit table easily, do you sometimes find yourself counting the "\|"s?
+
+    -   
+
+        | Col1 | Col2 | Col3 | Col4  | Col5 | Col6  | Col7 | Col8 | Col9 | Col10 |
+        |------|------|------|-------|------|-------|------|------|------|-------|
+        |      |      | many |       |      |       |      |      |      |       |
+        |      |      |      | empty |      | cells |      | you  | know |       |
+        |      |      |      |       |      |       |      |      |      |       |
+        |      | what |      |       | I    |       |      |      |      |       |
+        |      |      |      |       |      |       |      |      |      | mean  |
+
+-   Citations can be added too[@DeCarvalho2024], a references.bib will be added and managed by the editor
+
+Actually very cool, and you can switch between text editor and visual editor very easily (Ctrl + Shift + F4), see more details on Quarto's documentation

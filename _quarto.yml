@@ -1,0 +1,21 @@
+project:
+  type: website
+
+website:
+  title: "R-code-Snippet"
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        href: https://dnageek.github.com/
+      - icon: linkedin
+        href: https://www.linkedin.com/in/jie-wu-8592526/
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+
+
+

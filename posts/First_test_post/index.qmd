@@ -1,0 +1,50 @@
+---
+title: "Let me try Quarto and the first post"
+author: "Jie Wu"
+date: "2025-05-03"
+categories: [rmarkdown, Quarto]
+tags: [rmarkdown, Quarto]
+---
+
+Today, I was thinking about how to organize my code snippets (in R or shell scripts) so I can quickly reuse them when needed. Of course, we have amazing AI tools like Claude Code, ChatGPT, and others that can generate code for specific tasks in seconds. Still, I often find myself wanting to reuse my own snippets—especially for tasks I repeat frequently. For example, when I want to generate a heatmap in the same style I’ve used before (a common need for bioinformaticians), having a reusable template is much more efficient.
+
+Naturally, I started thinking about using Markdown, which allows me to display code alongside explanations and outputs. That’s when I came across [Quarto](https://quarto.org) —a powerful and flexible tool that seems perfect for this purpose.
+
+**Comparison with R Markdown by ChatGPT:**
+
+| Feature | Quarto | R Markdown |
+|------------------|--------------------------|----------------------------|
+| Language support | Multi-language (R, Python, Julia, Observable) | Primarily R (some Python via reticulate) |
+| Output formats | HTML, PDF, DOCX, slides, websites, books | Same, but Quarto handles more advanced formats more cleanly |
+| Project management | Built-in support (multi-doc workflows, websites, books) | Requires more manual setup |
+| Visual editor | Yes (RStudio) | Yes (RStudio) |
+| Future support | Actively developed to replace R Markdown | Still supported, but focus is shifting to Quarto |
+| Cross-language notebooks | Yes | Limited |
+
+**Comparison with Jupyter by ChatGPT:**
+
+| Feature | Quarto | Jupyter |
+|------------------|------------------------------|------------------------|
+| Document type | Markdown-based, reproducible docs | Code notebooks with rich outputs |
+| Code+text workflow | Literate programming focus | More code-focused |
+| Version control | Markdown = Git-friendly | `.ipynb` files are harder to diff |
+| Formatting and layout | More control (with YAML, markdown, custom templates) | Less control unless using external tools |
+| Multiple languages | Supports R, Python, Julia etc. in one document | Each notebook is language-specific |
+| UI | Uses RStudio, VS Code, or CLI | Browser-based or via VS Code |
+
+**Key advantages summarized by ChatGPT:**
+
+| Feature | Quarto | R Markdown | Jupyter Notebook |
+|------------------|------------------|------------------|-------------------|
+| Multi-language support | ✅ | ⚠️ (via reticulate) | ❌ (1 kernel per notebook) |
+| Web/slide outputs | ✅ Reveal.js, Websites | ✅ but clunkier | ❌ |
+| Reproducible reports | ✅ | ✅ | ⚠️ (can run out of order) |
+| Version control | ✅ Markdown-based | ✅ | ⚠️ JSON, hard to diff |
+| Parameterization | ✅ Built-in | ⚠️ | ⚠️ |
+
+So let me give it a try!
+
+-   Installation is easy, see details here: <https://quarto.org/docs/get-started/>
+-   I took a quick look at the Guide: <https://quarto.org/docs/guide/>
+-   Then I jumped in and created a blog: <https://quarto.org/docs/websites/website-blog.html>
+-   Edited the template coming with Qoarto and here we go!
