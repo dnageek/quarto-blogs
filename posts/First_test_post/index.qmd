@@ -2,7 +2,7 @@
 title: "Let me try Quarto and the first post"
 author: "Jie Wu"
 date: "2025-05-03"
-categories: [rmarkdown, Quarto]
+categories: [Quarto]
 tags: [rmarkdown, Quarto]
 ---
 
