@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://dnageek.github.io/quarto-blogs/posts/Use_visual_edit_quarto/index.html</loc>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/4_Tidyverse_intro/index.html</loc>
+    <lastmod>2025-05-04T23:32:14.462Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/2_Use_visual_edit_quarto/index.html</loc>
     <lastmod>2025-05-04T18:04:47.400Z</lastmod>
   </url>
   <url>
-    <loc>https://dnageek.github.io/quarto-blogs/posts/Claude_code_first_try/index.html</loc>
-    <lastmod>2025-05-04T19:34:55.218Z</lastmod>
+    <loc>https://dnageek.github.io/quarto-blogs/index.html</loc>
+    <lastmod>2025-05-04T23:23:32.712Z</lastmod>
   </url>
   <url>
     <loc>https://dnageek.github.io/quarto-blogs/about.html</loc>
     <lastmod>2025-05-04T18:27:33.150Z</lastmod>
   </url>
   <url>
-    <loc>https://dnageek.github.io/quarto-blogs/index.html</loc>
-    <lastmod>2025-05-04T18:20:22.277Z</lastmod>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/1_First_test_post/index.html</loc>
+    <lastmod>2025-05-04T17:40:23.992Z</lastmod>
   </url>
   <url>
-    <loc>https://dnageek.github.io/quarto-blogs/posts/First_test_post/index.html</loc>
-    <lastmod>2025-05-04T17:40:23.992Z</lastmod>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/3_Claude_code_first_try/index.html</loc>
+    <lastmod>2025-05-04T19:34:55.218Z</lastmod>
   </url>
 </urlset>
