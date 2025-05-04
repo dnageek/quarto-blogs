@@ -1,0 +1,36 @@
+---
+title: "Tidyverse Introduction"
+author: "Jie Wu"
+date: "2025-05-04T17:55:00" 
+format: 
+    html:
+        toc: true
+        toc-depth: 2
+        code-fold: true
+editor: visual
+categories: ["Data Science", "R Programming", "Tidyverse"]
+---
+
+# Introduction
+
+There are many blogs or articles describing why using Tidyverse rather than the traditional R coding, for example
+
+-   [Intro from Rstudio](https://rviews.rstudio.com/2017/06/08/what-is-the-tidyverse/)
+-   [rbloggers](https://www.r-bloggers.com/2018/09/why-learn-the-tidyverse/)
+-   [https://tidyverse.tidyverse.org/](Tidyverse%20official%20site)
+
+I am not going into details, but my main takeaways as a bioinformatician
+
+-   Piping (%\>% ) is more natural if you come from bash scripting
+
+-   Tidyverse is a universe with multiple packages, many of which are super useful, especially in data science.
+
+    ![](images/paste-1.png)
+
+-   The packages share common design, function arguments, data structures and so on
+
+-   Many other packages are developed in this universe, making it a critical mass
+
+# Logic of my blogs
+
+I won’t cover topics that are easily searchable on Google or ChatGPT, such as how to install a package or run a function. Instead, I’ll focus on practical things you might encounter as a **bioinformatician**, with tips that I hope will help make your analyses more efficient.
