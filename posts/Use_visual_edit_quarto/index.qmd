@@ -2,7 +2,7 @@
 title: "A few tips for Quarto"
 author: "Jie Wu"
 modified-date: "2025-05-04"
-date: "2025-05-04"
+date: "2025-05-04T09:15:00"
 categories: [rmarkdown, Quarto]
 tags: [Quarto]
 bibliography: references.bib
