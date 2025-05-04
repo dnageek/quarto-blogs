@@ -15,4 +15,5 @@ about:
       href: https://github.com/dnageek
 ---
 
-About this blog
+Nice to meet you! I am Jie Wu, a computational biologist. While most of my time I am analyzing data as a bioinformatcian, I also play with other stuff, for example: using AI to build some useful tools. I enjoyed learning new things and this blog is also my playground.  I’d be delighted if anything I share here turns out to be helpful to you.
+

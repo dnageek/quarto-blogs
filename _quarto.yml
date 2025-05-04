@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "R-code-Snippet"
+  title: "DNA-Geek's Playground"
   navbar:
     right:
       - about.qmd
@@ -16,6 +16,6 @@ format:
       - cosmo
       - brand
     css: styles.css
-
+    include-in-header: _includes/google-analytics.html
 
 

@@ -1,5 +1,5 @@
 ---
-title: "R-code-Snippets"
+title: "DNA-Geek's Playground"
 listing:
   contents: posts
   sort: "date desc"
