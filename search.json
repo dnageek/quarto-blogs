@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "posts/Use_visual_edit_quarto/index.html",
+    "href": "posts/Use_visual_edit_quarto/index.html",
+    "title": "A few tips for Quarto",
+    "section": "",
+    "text": "Use visual editor mode\nI know you like writing Markdowns in terminals, but sometimes a visual editor is helpful, for example:\n\nyou can add an image very easily, simply like using word, you can screenshot and paste, the editor will generate a folder, place the picture in and write the link in your document in a second:\n\nYou can edit table easily, do you sometimes find yourself counting the “|”s?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCol1\nCol2\nCol3\nCol4\nCol5\nCol6\nCol7\nCol8\nCol9\nCol10\n\n\n\n\n\n\nmany\n\n\n\n\n\n\n\n\n\n\n\n\nempty\n\ncells\n\nyou\nknow\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwhat\n\n\nI\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nmean\n\n\n\n\nCitations can be added too(De Carvalho and Vartanian 2024), a references.bib will be added and managed by the editor\n\nActually very cool, and you can switch between text editor and visual editor very easily (Ctrl + Shift + F4), see more details on Quarto’s documentation\n\n\n\n\n\nReferences\n\nDe Carvalho, Aline Martins, and Daniel Vartanian. 2024. “Quarto Website.” https://doi.org/10.17605/OSF.IO/XY4N7."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "R-code-Snippets",
+    "section": "",
+    "text": "Let me try Quarto and the first post\n\n\n\nrmarkdown\n\nQuarto\n\n\n\n\n\n\n\n\n\nMay 3, 2025\n\n\nJie Wu\n\n\n\n\n\n\n\n\n\n\n\n\nA few tips for Quarto\n\n\n\nrmarkdown\n\nQuarto\n\n\n\n\n\n\n\n\n\nMay 3, 2025\n\n\nJie Wu\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
+  },
+  {
+    "objectID": "posts/First_test_post/index.html",
+    "href": "posts/First_test_post/index.html",
+    "title": "Let me try Quarto and the first post",
+    "section": "",
+    "text": "Today, I was thinking about how to organize my code snippets (in R or shell scripts) so I can quickly reuse them when needed. Of course, we have amazing AI tools like Claude Code, ChatGPT, and others that can generate code for specific tasks in seconds. Still, I often find myself wanting to reuse my own snippets—especially for tasks I repeat frequently. For example, when I want to generate a heatmap in the same style I’ve used before (a common need for bioinformaticians), having a reusable template is much more efficient.\nNaturally, I started thinking about using Markdown, which allows me to display code alongside explanations and outputs. That’s when I came across Quarto —a powerful and flexible tool that seems perfect for this purpose.\nComparison with R Markdown by ChatGPT:\n\n\n\n\n\n\n\n\nFeature\nQuarto\nR Markdown\n\n\n\n\nLanguage support\nMulti-language (R, Python, Julia, Observable)\nPrimarily R (some Python via reticulate)\n\n\nOutput formats\nHTML, PDF, DOCX, slides, websites, books\nSame, but Quarto handles more advanced formats more cleanly\n\n\nProject management\nBuilt-in support (multi-doc workflows, websites, books)\nRequires more manual setup\n\n\nVisual editor\nYes (RStudio)\nYes (RStudio)\n\n\nFuture support\nActively developed to replace R Markdown\nStill supported, but focus is shifting to Quarto\n\n\nCross-language notebooks\nYes\nLimited\n\n\n\nComparison with Jupyter by ChatGPT:\n\n\n\n\n\n\n\n\nFeature\nQuarto\nJupyter\n\n\n\n\nDocument type\nMarkdown-based, reproducible docs\nCode notebooks with rich outputs\n\n\nCode+text workflow\nLiterate programming focus\nMore code-focused\n\n\nVersion control\nMarkdown = Git-friendly\n.ipynb files are harder to diff\n\n\nFormatting and layout\nMore control (with YAML, markdown, custom templates)\nLess control unless using external tools\n\n\nMultiple languages\nSupports R, Python, Julia etc. in one document\nEach notebook is language-specific\n\n\nUI\nUses RStudio, VS Code, or CLI\nBrowser-based or via VS Code\n\n\n\nKey advantages summarized by ChatGPT:\n\n\n\n\n\n\n\n\n\nFeature\nQuarto\nR Markdown\nJupyter Notebook\n\n\n\n\nMulti-language support\n✅\n⚠️ (via reticulate)\n❌ (1 kernel per notebook)\n\n\nWeb/slide outputs\n✅ Reveal.js, Websites\n✅ but clunkier\n❌\n\n\nReproducible reports\n✅\n✅\n⚠️ (can run out of order)\n\n\nVersion control\n✅ Markdown-based\n✅\n⚠️ JSON, hard to diff\n\n\nParameterization\n✅ Built-in\n⚠️\n⚠️\n\n\n\nSo let me give it a try!\n\nInstallation is easy, see details here: https://quarto.org/docs/get-started/\nI took a quick look at the Guide: https://quarto.org/docs/guide/\nThen I jumped in and created a blog: https://quarto.org/docs/websites/website-blog.html\nEdited the template coming with Qoarto and here we go!"
+  }
+]
