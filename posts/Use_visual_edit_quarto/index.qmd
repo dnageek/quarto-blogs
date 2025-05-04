@@ -2,7 +2,7 @@
 title: "A few tips for Quarto"
 author: "Jie Wu"
 modified-date: "2025-05-04"
-date: "2025-05-03"
+date: "2025-05-04"
 categories: [rmarkdown, Quarto]
 tags: [Quarto]
 bibliography: references.bib
@@ -34,4 +34,4 @@ Actually very cool, and you can switch between text editor and visual editor ver
 
 # Publish to GitHub Pages
 
-There is a good guidance at [Quarto]{https://quarto.org/docs/publishing/github-pages.html} on how to publish automatically to GitHub Pages. One error I ran into was: my Git worked well but "quarto publish gh-pages" didn't work. In that case, check if you have passphrase associated with your ssh key. This can be fixed following [this post](https://gist.github.com/danieldogeanu/16c61e9b80345c5837b9e5045a701c99)
+There is a good guidance at [Quarto]{https://quarto.org/docs/publishing/github-pages.html} on how to publish automatically to GitHub Pages. One error I ran into was: my Git functions worked well but "quarto publish gh-pages" didn't work. In that case, check if you have passphrase associated with your ssh key. This can be fixed following [this post](https://gist.github.com/danieldogeanu/16c61e9b80345c5837b9e5045a701c99)
