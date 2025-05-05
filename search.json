@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "posts/5_Tidyverse_read_data/index.html",
-    "href": "posts/5_Tidyverse_read_data/index.html",
-    "title": "Tidyverse: Read Data",
-    "section": "",
-    "text": "Summarized by ChatGPT\n\n\n\n\n\n\n\n\n\nPackage\nFunction\nPurpose\nFile Type / Input\n\n\n\n\nreadr\nread_csv()\nRead comma-separated values\n.csv\n\n\n\nread_tsv()\nRead tab-separated values\n.tsv\n\n\n\nread_delim()\nRead delimited text files\nCustom delimiter\n\n\n\nread_fwf()\nRead fixed-width text files\n.txt, structured text\n\n\n\nread_table()\nRead whitespace-separated files\n.txt, space-separated\n\n\n\nread_lines()\nRead lines as character vector\nRaw text\n\n\n\nread_file()\nRead entire file as one string\nRaw text\n\n\n\nread_rds() / write_rds()\nRead/write R serialized objects\n.rds\n\n\n\ntype_convert()\nGuess and convert column types\nTibble/data frame\n\n\nreadxl\nread_excel()\nRead Excel files\n.xls, .xlsx\n\n\nhaven\nread_spss()\nImport SPSS data\n.sav, .zsav\n\n\n\nread_stata()\nImport Stata data\n.dta\n\n\n\nread_sas()\nImport SAS data\n.sas7bdat\n\n\nxml2\nread_xml()\nParse XML\n.xml, XML string/URL\n\n\n\nread_html()\nParse HTML\n.html, HTML string/URL\n\n\n\nxml_find_all()\nFind all nodes via XPath\nXPath expression\n\n\n\nxml_find_first()\nFind first matching node\nXPath expression\n\n\n\nxml_text()\nExtract text content\nXML/HTML node\n\n\n\nxml_attr() / xml_attrs()\nExtract attribute(s)\nXML/HTML node\n\n\n\nxml_children()\nGet child nodes\nXML/HTML node\n\n\n\nxml_structure()\nDisplay tree structure\nXML/HTML document\n\n\nhttr\nGET() / POST()\nMake HTTP requests\nAPI endpoints, web URLs\n\n\n\ncontent()\nExtract content from response\nParsed text, JSON, XML, raw\n\n\n\nstatus_code()\nCheck HTTP response code\nHTTP response object\n\n\n\nadd_headers()\nAdd custom headers to request\nAuthorization, content-type, etc.\n\n\n\nauthenticate()\nAdd basic authentication credentials\nUsername/password\n\n\nrvest\nread_html()\n(Wraps xml2::read_html())\nWeb page scraping\n\n\n\nhtml_nodes()\nSelect multiple HTML elements (CSS/XPath)\nCSS or XPath selector\n\n\n\nhtml_node()\nSelect a single HTML element\nCSS or XPath selector\n\n\n\nhtml_text()\nExtract visible text\nHTML node\n\n\n\nhtml_attr()\nExtract attribute value\nHTML tag attribute (e.g., href, src)\n\n\n\nhtml_table()\nExtract HTML tables into tibbles\n&lt;table&gt; elements"
-  },
-  {
     "objectID": "posts/3_Claude_code_first_try/index.html",
     "href": "posts/3_Claude_code_first_try/index.html",
     "title": "Trying Claude Code",
@@ -46,7 +39,7 @@
     "href": "index.html",
     "title": "DNA-Geek’s Playground",
     "section": "",
-    "text": "Tidyverse: Read Data\n\n\n\nTidyverse\n\nData Science\n\nR Programming\n\n\n\n\n\n\n\n\n\nMay 4, 2025\n\n\nJie Wu\n\n\n\n\n\n\n\n\n\n\n\n\nTidyverse Introduction\n\n\n\nData Science\n\nR Programming\n\nTidyverse\n\n\n\n\n\n\n\n\n\nMay 4, 2025\n\n\nJie Wu\n\n\n\n\n\n\n\n\n\n\n\n\nTrying Claude Code\n\n\n\nClaude Code\n\n\n\n\n\n\n\n\n\nMay 4, 2025\n\n\nJie Wu\n\n\n\n\n\n\n\n\n\n\n\n\nA few tips for Quarto\n\n\n\nrmarkdown\n\nQuarto\n\n\n\n\n\n\n\n\n\nMay 4, 2025\n\n\nJie Wu\n\n\n\n\n\n\n\n\n\n\n\n\nLet me try Quarto and the first post\n\n\n\nQuarto\n\n\n\n\n\n\n\n\n\nMay 3, 2025\n\n\nJie Wu\n\n\n\n\n\nNo matching items"
+    "text": "Tidyverse Introduction\n\n\n\nData Science\n\nR Programming\n\nTidyverse\n\n\n\n\n\n\n\n\n\nMay 4, 2025\n\n\nJie Wu\n\n\n\n\n\n\n\n\n\n\n\n\nTrying Claude Code\n\n\n\nClaude Code\n\n\n\n\n\n\n\n\n\nMay 4, 2025\n\n\nJie Wu\n\n\n\n\n\n\n\n\n\n\n\n\nA few tips for Quarto\n\n\n\nrmarkdown\n\nQuarto\n\n\n\n\n\n\n\n\n\nMay 4, 2025\n\n\nJie Wu\n\n\n\n\n\n\n\n\n\n\n\n\nLet me try Quarto and the first post\n\n\n\nQuarto\n\n\n\n\n\n\n\n\n\nMay 3, 2025\n\n\nJie Wu\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/2_Use_visual_edit_quarto/index.html",
