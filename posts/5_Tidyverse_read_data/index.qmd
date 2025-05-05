@@ -1,0 +1,110 @@
+---
+title: "Tidyverse: Read Data"
+author: "Jie Wu"
+date: "2025-05-04T19:45:00"
+format: 
+    html:
+        toc: true
+        toc-depth: 2
+        code-fold: false
+categories: ["Tidyverse", "Data Science", "R Programming"]
+---
+
+# Summarized by ChatGPT
+
+Here is a quick list of tidyverse packages that import data
+
+| **Package** | **Function** | **Purpose** | **File Type / Input** |
+|------------------|------------------|-------------------|-------------------|
+| **readr** | `read_csv()` | Read comma-separated values | `.csv` |
+|  | `read_tsv()` | Read tab-separated values | `.tsv` |
+|  | `read_delim()` | Read delimited text files | Custom delimiter |
+|  | `read_fwf()` | Read fixed-width text files | `.txt`, structured text |
+|  | `read_table()` | Read whitespace-separated files | `.txt`, space-separated |
+|  | `read_lines()` | Read lines as character vector | Raw text |
+|  | `read_file()` | Read entire file as one string | Raw text |
+|  | `read_rds()` / `write_rds()` | Read/write R serialized objects | `.rds` |
+|  | `type_convert()` | Guess and convert column types | Tibble/data frame |
+| **readxl** | `read_excel()` | Read Excel files | `.xls`, `.xlsx` |
+| **haven** | `read_spss()` | Import SPSS data | `.sav`, `.zsav` |
+|  | `read_stata()` | Import Stata data | `.dta` |
+|  | `read_sas()` | Import SAS data | `.sas7bdat` |
+| **xml2** | `read_xml()` | Parse XML | `.xml`, XML string/URL |
+|  | `read_html()` | Parse HTML | `.html`, HTML string/URL |
+|  | `xml_find_all()` | Find all nodes via XPath | XPath expression |
+|  | `xml_find_first()` | Find first matching node | XPath expression |
+|  | `xml_text()` | Extract text content | XML/HTML node |
+|  | `xml_attr()` / `xml_attrs()` | Extract attribute(s) | XML/HTML node |
+|  | `xml_children()` | Get child nodes | XML/HTML node |
+|  | `xml_structure()` | Display tree structure | XML/HTML document |
+| **httr** | `GET()` / `POST()` | Make HTTP requests | API endpoints, web URLs |
+|  | `content()` | Extract content from response | Parsed text, JSON, XML, raw |
+|  | `status_code()` | Check HTTP response code | HTTP response object |
+|  | `add_headers()` | Add custom headers to request | Authorization, content-type, etc. |
+|  | `authenticate()` | Add basic authentication credentials | Username/password |
+| **rvest** | `read_html()` | (Wraps `xml2::read_html()`) | Web page scraping |
+|  | `html_nodes()` | Select multiple HTML elements (CSS/XPath) | CSS or XPath selector |
+|  | `html_node()` | Select a single HTML element | CSS or XPath selector |
+|  | `html_text()` | Extract visible text | HTML node |
+|  | `html_attr()` | Extract attribute value | HTML tag attribute (e.g., `href`, `src`) |
+|  | `html_table()` | Extract HTML tables into tibbles | `<table>` elements |
+
+# A few examples
+
+## Read Depmap Mutation table
+
+You may want to run `install.packages("tidyverse")` first.
+
+The file we are working with will be the OmicsSomaticMutations.csv file from 24Q4 DepMap release. The link to this file is https://plus.figshare.com/ndownloader/files/51065732, readr functions can can read files directly with its URL, but let's download it since we need to use it many times.
+
+The first try will be just using read_csv with default parameters
+
+```{r}
+#| message: false
+#| warning: false
+
+require(readr)
+require(dplyr)
+require(here)
+
+
+url <- "https://plus.figshare.com/ndownloader/files/51065732"
+file_path <- here("_data/OmicsSomaticMutations.csv")
+download.file(url, file_path )
+
+depmap_mutation_data <- read_csv(file_path)
+
+```
+
+But wait, do you see those warning messages?
+
+![](images/paste-1.png)
+
+Don't ignore them! Run the suggested `problems` command as suggested! 
+
+``` {r}
+problems(depmap_mutation_data)
+
+```
+
+Look, the 60th column, which is GwasDisease, was empty until row 12396, see what happened there:
+
+``` {r}
+depmap_mutation_data %>% pull(GwasDisease) %>% unique()
+
+```
+
+`read_csv` is surely a better option than `read.table`, for example, you don't have to worry about quotes, separator, headers. but if you run with the default, it doesn't import the right data! 
+
+It is always a good practice to check if the data is correctly loaded, don't ignore warnings, and also run a few quick commands to spotcheck
+
+```{r}
+
+depmap_mutation_data %>% dim()
+
+depmap_mutation_data %>% head()
+
+depmap_mutation_data %>% names()
+
+
+```
