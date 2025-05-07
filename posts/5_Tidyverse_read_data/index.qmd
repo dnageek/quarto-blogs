@@ -11,12 +11,12 @@ format:
 categories: ["Tidyverse", "Data Science", "R Programming"]
 ---
 
-# Summarized by ChatGPT
+# Functions to read different kinds of data in Tidyverse
 
-Here is a quick list of tidyverse packages that import data
+Below is a summary of Tidyverse packages and their functions for importing data (by ChatGPT). Use this as a quick reference, and consult the official documentation or search online for detailed usage and options. You don't need to memorize everything—just know where to look when needed.
 
 | **Package** | **Function** | **Purpose** | **File Type / Input** |
-|------------------|------------------|-------------------|-------------------|
+|------------------|------------------|------------------|------------------|
 | **readr** | `read_csv()` | Read comma-separated values | `.csv` |
 |  | `read_tsv()` | Read tab-separated values | `.tsv` |
 |  | `read_delim()` | Read delimited text files | Custom delimiter |
@@ -54,20 +54,19 @@ Here is a quick list of tidyverse packages that import data
 
 ## Read Depmap Mutation table
 
-You may want to run `install.packages("tidyverse")` first.
+Before proceeding, ensure you have the `tidyverse` package installed by running `install.packages("tidyverse")`.
 
-The file we are working with will be the OmicsSomaticMutations.csv file from 24Q4 DepMap release. The link to this file is https://plus.figshare.com/ndownloader/files/51065732, readr functions can can read files directly with its URL, but let's download it since we need to use it many times.
+We will work with the `OmicsSomaticMutations.csv` file from the 24Q4 DepMap release. The file can be downloaded from the following link: [https://plus.figshare.com/ndownloader/files/51065732](https://plus.figshare.com/ndownloader/files/51065732). While `readr` functions can read files directly from a URL, we will download the file locally since it will be used multiple times.
 
-The first try will be just using read_csv with default parameters
+For the first attempt, we will use `read_csv()` with its default parameters.
 
 ```{r}
 #| message: false
 #| warning: false
-
+# Load all packages
 require(readr)
 require(dplyr)
 require(here)
-
 
 url <- "https://plus.figshare.com/ndownloader/files/51065732"
 file_path <- here("_data/OmicsSomaticMutations.csv")
@@ -77,35 +76,43 @@ depmap_mutation_data <- read_csv(file_path)
 
 ```
 
-But wait, do you see those warning messages?
+Of course, the code runs and loads all rows and columns, but did you notice those warning messages? Don't ignore them—they often provide valuable insights into potential issues with your data!
 
-![](images/paste-1.png)
+![](images/paste-2.png)
 
-Don't ignore them! Run the suggested `problems` command as suggested! 
+Let's run the suggested `problems()` command as suggested!
 
-``` {r}
+```{r}
 problems(depmap_mutation_data)
 
 ```
 
-Look, the 60th column, which is GwasDisease, was empty until row 12396, see what happened there:
-
-``` {r}
-depmap_mutation_data %>% pull(GwasDisease) %>% unique()
-
-```
-
-`read_csv` is surely a better option than `read.table`, for example, you don't have to worry about quotes, separator, headers. but if you run with the default, it doesn't import the right data! 
-
-It is always a good practice to check if the data is correctly loaded, don't ignore warnings, and also run a few quick commands to spotcheck
+If you examine the first problem as an example, you'll notice that the 60th column (`GwasDisease`) is empty until row 12,396. To investigate further, I ran the following command to extract all values in this column and display the unique values as a quick spot-check:
 
 ```{r}
-
-depmap_mutation_data %>% dim()
-
-depmap_mutation_data %>% head()
-
-depmap_mutation_data %>% names()
-
-
+depmap_mutation_data %>% pull(GwasDisease) %>% unique()
 ```
+
+Did you notice? The entire column is filled with `NA` values, indicating that it was not properly loaded using the default `read_csv()` function. This highlights the importance of carefully reviewing your data after importing it. Always double-check for issues like this to ensure your analysis starts on the right foot.
+
+While `read_csv()` is generally a better option than `read.table()`—offering convenience by automatically handling quotes, separators, and headers—it is not foolproof. Even if your data is truly a CSV file, the importer may still encounter issues and fail to load your data correctly. This is a critical point to remember for any data scientist or bioinformatician: always validate your imported data to ensure accuracy and reliability.
+
+```{r}
+depmap_mutation_data <- read_csv(file_path, guess_max = Inf)
+
+# Check for problems again
+problems(depmap_mutation_data)
+
+# Verify the column values
+depmap_mutation_data %>% pull(GwasDisease) %>% unique()
+```
+
+As you can see, no problems were found, and the column now contains more values. 
+
+Even if there are no warnings now, it's always a good practice to perform a few quick checks to inspect your data. You don't want to encounter issues later due to unnoticed problems in the initial step.
+
+`
+depmap_mutation_data %>% dim()
+depmap_mutation_data %>% head()
+depmap_mutation_data %>% names()
+`
