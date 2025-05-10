@@ -1,7 +1,7 @@
 ---
 title: "Tidyverse: Read Data"
 author: "Jie Wu"
-draft: true
+draft: false
 date: "2025-05-04T19:45:00"
 format: 
     html:
@@ -50,13 +50,11 @@ Below is a summary of Tidyverse packages and their functions for importing data 
 |  | `html_attr()` | Extract attribute value | HTML tag attribute (e.g., `href`, `src`) |
 |  | `html_table()` | Extract HTML tables into tibbles | `<table>` elements |
 
-# A few examples
-
-## Read Depmap Mutation table
+# Read DepMap Mutation Table
 
 Before proceeding, ensure you have the `tidyverse` package installed by running `install.packages("tidyverse")`.
 
-We will work with the `OmicsSomaticMutations.csv` file from the 24Q4 DepMap release. The file can be downloaded from the following link: [https://plus.figshare.com/ndownloader/files/51065732](https://plus.figshare.com/ndownloader/files/51065732). While `readr` functions can read files directly from a URL, we will download the file locally since it will be used multiple times.
+We will work with the `OmicsSomaticMutations.csv` file from the 24Q4 DepMap release. The file can be downloaded from the following link: <https://plus.figshare.com/ndownloader/files/51065732>. While `readr` functions can read files directly from a URL, we will download the file locally since it will be used multiple times.
 
 For the first attempt, we will use `read_csv()` with its default parameters.
 
@@ -107,12 +105,6 @@ problems(depmap_mutation_data)
 depmap_mutation_data %>% pull(GwasDisease) %>% unique()
 ```
 
-As you can see, no problems were found, and the column now contains more values. 
+As you can see, no problems were found, and the column now contains more values.
 
-Even if there are no warnings now, it's always a good practice to perform a few quick checks to inspect your data. You don't want to encounter issues later due to unnoticed problems in the initial step.
-
-`
-depmap_mutation_data %>% dim()
-depmap_mutation_data %>% head()
-depmap_mutation_data %>% names()
-`
+Even if there are no warnings now, it's always a good practice to perform a few quick checks to inspect your data. You don't want to encounter issues later due to unnoticed problems in the initial step. Some example commands you can use include `dim()`, `head()`, `spec()` and `names()`. 
