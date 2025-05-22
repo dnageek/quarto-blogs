@@ -16,7 +16,7 @@ categories: ["Data Science", "R Programming", "Tidyverse"]
 There are many blogs or articles describing why using Tidyverse rather than the traditional R coding, for example
 
 -   [Intro from Rstudio](https://rviews.rstudio.com/2017/06/08/what-is-the-tidyverse/)
--   [rbloggers](https://www.r-bloggers.com/2018/09/why-learn-the-tidyverse/)
+-   [Rbloggers](https://www.r-bloggers.com/2018/09/why-learn-the-tidyverse/)
 -   [https://tidyverse.tidyverse.org/](Tidyverse%20official%20site)
 
 I am not going into details, but my main takeaways as a bioinformatician

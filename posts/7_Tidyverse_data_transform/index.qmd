@@ -1,0 +1,85 @@
+---
+title: "Tidyverse: Transform data, mutation table to matrix"
+author: "Jie Wu"
+draft: false
+date: "2025-05-21"
+format: 
+    html:
+        toc: true
+        toc-depth: 2
+        code-fold: false
+categories: ["Tidyverse", "Data Science", "R Programming"]
+---
+
+Data manipulation is a very important skill which helps to organize your data into a desired format, making it easier to analyze and visualize. The Tidyverse is a collection of R packages designed for data science, providing powerful tools for transforming and cleaning data efficiently. In this post, we will explore how to use Tidyverse functions to transform data for your analysis workflow.
+
+In this post, we will continue to work on the mutation table we imported in our last post and convert it to a matrix. This process involves reshaping the data from a long format to a wide format, which is often required for downstream analyses such as clustering or heatmap visualization. We will use Tidyverse functions like `pivot_wider()` from the `tidyr` package to accomplish this transformation.
+
+The `pivot_wider()` function is used to transform data from a long format (where each row is an observation) to a wide format (where each unique value in a column becomes its own column). This is particularly useful when you want to create a matrix-like structure for further analysis.
+
+The `pivot_longer()` function does the opposite: it converts data from a wide format back to a long format, making it easier to tidy and manipulate data for plotting or modeling.
+
+Both functions are part of the `tidyr` package in the Tidyverse and are essential tools for reshaping data in R.
+
+```{r}
+#| message: false
+#| warning: false
+# Load all packages
+require(tidyverse)
+require(here)
+
+url <- "https://plus.figshare.com/ndownloader/files/51065732"
+file_path <- here("_data/OmicsSomaticMutations.csv")
+
+# added this since we already downloaded it
+if (!file.exists(file_path)) {
+    download.file(url, file_path)
+}
+
+depmap_mutation_data <- read_csv(file_path, guess_max = Inf)
+
+```
+
+First, let's simplify the table using `dplyr::select`. This step isn't really necessary if you're already familiar with the data structure, but it makes it easier to see what's happening in the data.
+
+```{r}
+#| message: false
+#| warning: false
+
+depmap_mutation_data <- depmap_mutation_data %>% 
+                dplyr::select(ModelID, LikelyLoF, VariantInfo, HugoSymbol)
+                
+
+```
+
+Did you notice that I used `dplyr::select()` rather than `select()`? That's to avoid namespace conflict, especially when you loaded too many libs in the same code.
+
+Next, we want to convert it to a mutation matrix:
+
+```{r}
+
+mutation.matrix <- pivot_wider(depmap_mutation_data %>% filter(LikelyLoF == TRUE) %>% 
+                        dplyr::select(HugoSymbol, ModelID) %>% 
+                        group_by(ModelID) %>% 
+                        count(HugoSymbol), 
+                        names_from="ModelID", values_from="n") %>%
+                        mutate(across(-HugoSymbol, ~replace_na(., 0))) %>%
+                        mutate(across(where(is.numeric), ~ifelse(. > 1, 1, .))) %>%
+                        mutate(HugoSymbol = paste("mut", HugoSymbol, sep=".")) 
+
+```
+
+Let's break down the code step by step:
+
+-   Filters rows where `LikelyLoF == "Y"` (likely loss-of-function mutations). You can also use other filteres, depending on the data
+-   Selects only `HugoSymbol` and `ModelID`.
+-   Groups by `ModelID` (cell line) and counts the number of mutations per gene (`HugoSymbol`). The resulting data frame has one row per gene per cell line, with a count of mutations (n).
+-   Uses `pivot_wider()` to reshape the data so each `ModelID` becomes a column, and each row is a gene, making the table wider
+-   Replaces `NA` values with 0 (no mutation).
+-   Converts counts greater than 1 to 1 (binary matrix: mutated or not). Usually we only care if a gene is mutated or not, but not how many mutation it has
+-   Prefixes gene names with "mut." and replaces hyphens with underscores.
+-   Renames the `HugoSymbol` column to `feature`.
+
+
+
+This process transforms the mutation data into a binary matrix suitable for downstream analyses like clustering or heatmaps.
