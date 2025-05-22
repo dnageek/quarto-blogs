@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/7_Tidyverse_data_transform/index.html</loc>
+    <lastmod>2025-05-22T03:58:30.086Z</lastmod>
+  </url>
+  <url>
     <loc>https://dnageek.github.io/quarto-blogs/posts/5_Tidyverse_read_data/index.html</loc>
     <lastmod>2025-05-22T02:34:17.826Z</lastmod>
   </url>
