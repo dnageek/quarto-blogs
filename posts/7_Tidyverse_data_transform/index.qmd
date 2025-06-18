@@ -71,7 +71,7 @@ mutation.matrix <- pivot_wider(depmap_mutation_data %>% filter(LikelyLoF == TRUE
 
 Let's break down the code step by step:
 
--   Filters rows where `LikelyLoF == "Y"` (likely loss-of-function mutations). You can also use other filteres, depending on the data
+-   Filters rows where `LikelyLoF == TRUE` (likely loss-of-function mutations). You can also use other filteres, depending on the data
 -   Selects only `HugoSymbol` and `ModelID`.
 -   Groups by `ModelID` (cell line) and counts the number of mutations per gene (`HugoSymbol`). The resulting data frame has one row per gene per cell line, with a count of mutations (n).
 -   Uses `pivot_wider()` to reshape the data so each `ModelID` becomes a column, and each row is a gene, making the table wider
@@ -80,6 +80,15 @@ Let's break down the code step by step:
 -   Prefixes gene names with "mut." and replaces hyphens with underscores.
 -   Renames the `HugoSymbol` column to `feature`.
 
-
-
 This process transforms the mutation data into a binary matrix suitable for downstream analyses like clustering or heatmaps.
+
+Here are some of the key functions used in this post:
+
+- `filter()`: Selects rows based on specific conditions.
+- `select()`: Chooses specific columns from a data frame.
+- `group_by()`: Groups data by one or more variables for summary operations.
+- `pivot_wider()`: Reshapes data from long to wide format.
+- `mutate()`: Adds or modifies columns in a data frame.
+- `across()`: Applies a function to multiple columns.
+
+These functions are part of the Tidyverse and are essential for efficient data manipulation in R. We will continue to use them in future posts to tackle more complex data transformation tasks.
