@@ -417,7 +417,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Let’s break down the code step by step:</p>
 <ul>
-<li>Filters rows where <code>LikelyLoF == "Y"</code> (likely loss-of-function mutations). You can also use other filteres, depending on the data</li>
+<li>Filters rows where <code>LikelyLoF == TRUE</code> (likely loss-of-function mutations). You can also use other filteres, depending on the data</li>
 <li>Selects only <code>HugoSymbol</code> and <code>ModelID</code>.</li>
 <li>Groups by <code>ModelID</code> (cell line) and counts the number of mutations per gene (<code>HugoSymbol</code>). The resulting data frame has one row per gene per cell line, with a count of mutations (n).</li>
 <li>Uses <code>pivot_wider()</code> to reshape the data so each <code>ModelID</code> becomes a column, and each row is a gene, making the table wider</li>
@@ -427,6 +427,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Renames the <code>HugoSymbol</code> column to <code>feature</code>.</li>
 </ul>
 <p>This process transforms the mutation data into a binary matrix suitable for downstream analyses like clustering or heatmaps.</p>
+<p>Here are some of the key functions used in this post:</p>
+<ul>
+<li><code>filter()</code>: Selects rows based on specific conditions.</li>
+<li><code>select()</code>: Chooses specific columns from a data frame.</li>
+<li><code>group_by()</code>: Groups data by one or more variables for summary operations.</li>
+<li><code>pivot_wider()</code>: Reshapes data from long to wide format.</li>
+<li><code>mutate()</code>: Adds or modifies columns in a data frame.</li>
+<li><code>across()</code>: Applies a function to multiple columns.</li>
+</ul>
+<p>These functions are part of the Tidyverse and are essential for efficient data manipulation in R. We will continue to use them in future posts to tackle more complex data transformation tasks.</p>
 
 
 
