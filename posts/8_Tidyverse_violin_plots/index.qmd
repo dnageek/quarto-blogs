@@ -72,9 +72,7 @@ data <- Model_anno %>%
 
 ```
 
-Now that we have a combined table, let's visualize the relationship between KMT2D mutation status and MSI score using violin and boxplots. This can help us see if MSI tumors have more mutations in genes like KMT2D. Here we use ggpubr, which is built on ggplot2 and makes publication-ready figures easier to create.
-
-
+Now that we have a combined table, let's visualize the relationship between KMT2D mutation status and MSI score using violin and boxplots. This can help us see if MSI tumors have more mutations in genes like KMT2D. Here we use `ggpubr`, which is built on `ggplot2` and makes publication-ready figures easier to create.
 
 ```{r}
 #| message: false
@@ -85,10 +83,11 @@ ggviolin(data %>% filter(!is.na(mut.KMT2D)),
         x="mut.KMT2D", y="MSIScore", 
         add=c("boxplot"), fill="mut.KMT2D", 
         add.params = list(fill = "white", alpha=0.5), trim=T) +
-		stat_compare_means(ref.group="0", label = "p.signif", show.legend=F )  +
+		stat_compare_means(comparisons = list(c("0","1")), 
+        label = "p.signif", show.legend=F )  +
 		geom_jitter( width=0.2, height=0)
 
 
 ```
 
-One quick note: While ggpubr offers an add = "jitter" option for adding jittered points to your plots, in this example I used geom_jitter() from ggplot2 directly. Both approaches work, but geom_jitter() provides a bit more flexibility if you want to customize the appearance of the points, especially in this case I do not want to jitter on y-axis. 
+One quick note: While `ggpubr` offers an `add = "jitter"` option for adding jittered points to your plots, in this example I used `geom_jitter()` from `ggplot2` directly. Both approaches work, but `geom_jitter()` provides a bit more flexibility if you want to customize the appearance of the points, especially in this case I do not want to jitter on y-axis.
