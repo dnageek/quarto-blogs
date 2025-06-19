@@ -92,3 +92,10 @@ Here are some of the key functions used in this post:
 - `across()`: Applies a function to multiple columns.
 
 These functions are part of the Tidyverse and are essential for efficient data manipulation in R. We will continue to use them in future posts to tackle more complex data transformation tasks.
+
+let's save this matrix for later use:
+
+```{r}
+saveRDS(mutation.matrix, file = here("_data/mutation_matrix.rds"))
+
+```

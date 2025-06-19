@@ -1,0 +1,94 @@
+---
+title: "Tidyverse and ggpubr: Violin plots and more"
+author: "Jie Wu"
+draft: false
+date: "2025-06-18"
+format: 
+    html:
+        toc: true
+        toc-depth: 2
+        code-fold: false
+categories: ["Tidyverse", "Data Science", "R Programming"]
+---
+
+In this post, we'll enrich the mutation table from the previous blog by integrating additional sample annotations and omics signatures. Using tidyverse tools, we'll join these datasets and explore the results with violin and box plots to uncover meaningful biological insights.
+
+```{r}
+#| message: false
+#| warning: false
+# Load all packages
+require(tidyverse)
+require(here)
+
+# Load the mutation table from the RDS file saved in the last post
+mutation_table <- readRDS(here("_data/mutation_matrix.rds"))
+
+
+```
+
+Now download more tables from DepMap 24Q4:
+
+```{r}
+#| message: false
+#| warning: false
+url <- "https://plus.figshare.com/ndownloader/files/51065297"
+file_path <- here("_data/Model.csv")
+
+if (!file.exists(file_path)) {
+    download.file(url, file_path)
+}
+
+Model_anno <- read_csv(file_path, guess_max = Inf)
+
+url <- "https://plus.figshare.com/ndownloader/files/51065726"
+file_path <- here("_data/OmicsSignatures.csv")
+
+if (!file.exists(file_path)) {
+    download.file(url, file_path)
+}
+
+Model_sigs <- read_csv(file_path, guess_max = Inf)
+names(Model_sigs)[1] <- "ModelID"
+```
+
+Let's now bring all these tables together for a comprehensive dataset. We'll reshape the mutation table using `pivot_longer()` and `pivot_wider()` (instead of `t()`), then use `full_join()` from dplyr (instead of `merge()`) to combine everything into a single tidy data frame. This tidyverse-based workflow keeps things organized and makes downstream analysis and visualization much easier.
+
+```{r}
+#| message: false
+#| warning: false
+mutation_table <- mutation_table %>%
+    pivot_longer(
+        cols = -HugoSymbol,
+        names_to = "Sample",
+        values_to = "Mutation"
+    ) %>% 
+    pivot_wider(names_from = "HugoSymbol",
+                values_from = "Mutation"
+                )
+
+data <- Model_anno %>%
+    full_join(Model_sigs,by=c("ModelID")) %>%
+    full_join(mutation_table, by = c("ModelID"="Sample"))
+
+```
+
+Now that we have a combined table, let's visualize the relationship between KMT2D mutation status and MSI score using violin and boxplots. This can help us see if MSI tumors have more mutations in genes like KMT2D. Here we use ggpubr, which is built on ggplot2 and makes publication-ready figures easier to create.
+
+
+
+```{r}
+#| message: false
+#| warning: false
+require(ggpubr)
+
+ggviolin(data %>% filter(!is.na(mut.KMT2D)),
+        x="mut.KMT2D", y="MSIScore", 
+        add=c("boxplot"), fill="mut.KMT2D", 
+        add.params = list(fill = "white", alpha=0.5), trim=T) +
+		stat_compare_means(ref.group="0", label = "p.signif", show.legend=F )  +
+		geom_jitter( width=0.2, height=0)
+
+
+```
+
+One quick note: While ggpubr offers an add = "jitter" option for adding jittered points to your plots, in this example I used geom_jitter() from ggplot2 directly. Both approaches work, but geom_jitter() provides a bit more flexibility if you want to customize the appearance of the points, especially in this case I do not want to jitter on y-axis. 
