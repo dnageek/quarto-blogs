@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jie Wu">
+<meta name="dcterms.date" content="2025-06-18">
 
-<title>DNA-Geek’s Playground</title>
+<title>Tidyverse and ggpubr: Violin plots and more – DNA-Geek’s Playground</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,32 +22,65 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-748b535e376f14d4692bf2b2e5fd6380.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-cc63fce9873912f1bbbccf05079cc9ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-08799928d293638fe9563d5c5a2794e5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-cc63fce9873912f1bbbccf05079cc9ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-748b535e376f14d4692bf2b2e5fd6380.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-cc63fce9873912f1bbbccf05079cc9ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-08799928d293638fe9563d5c5a2794e5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-cc63fce9873912f1bbbccf05079cc9ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,35 +108,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <!-- Google tag (gtag.js) -->
 
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BTXN919NM0"></script>
@@ -120,37 +126,8 @@ ul.task-list li input[type="checkbox"] {
 
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -321,7 +298,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DNA-Geek’s Playground</span>
     </a>
   </div>
@@ -332,7 +309,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -356,271 +333,120 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">DNA-Geek’s Playground</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Tidyverse and ggpubr: Violin plots and more</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Tidyverse</div>
+                <div class="quarto-category">Data Science</div>
+                <div class="quarto-category">R Programming</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Jie Wu </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 18, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div><div class="category" data-category="Q2xhdWRlJTIwQ29kZQ==">Claude Code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YSUyMFNjaWVuY2U=">Data Science <span class="quarto-category-count">(4)</span></div><div class="category" data-category="UXVhcnRv">Quarto <span class="quarto-category-count">(2)</span></div><div class="category" data-category="UiUyMFByb2dyYW1taW5n">R Programming <span class="quarto-category-count">(4)</span></div><div class="category" data-category="cm1hcmtkb3du">rmarkdown <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGlkeXZlcnNl">Tidyverse <span class="quarto-category-count">(4)</span></div></div></div>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
 
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="VGlkeXZlcnNlJTJDRGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmc=" data-listing-date-sort="1750219200000" data-listing-file-modified-sort="1750301917354" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="420">
-<div class="thumbnail"><a href="./posts/8_Tidyverse_violin_plots/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\8_Tidyverse_violin_plots\index_files\figure-html\unnamed-chunk-4-1.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/8_Tidyverse_violin_plots/index.html" class="no-external">Tidyverse and ggpubr: Violin plots and more</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('VGlkeXZlcnNl'); return false;">Tidyverse</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
+<p>In this post, we’ll enrich the mutation table from the previous blog by integrating additional sample annotations and omics signatures. Using tidyverse tools, we’ll join these datasets and explore the results with violin and box plots to uncover meaningful biological insights.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load all packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(here)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the mutation table from the RDS file saved in the last post</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>mutation_table <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"_data/mutation_matrix.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="delink listing-description"><a href="./posts/8_Tidyverse_violin_plots/index.html" class="no-external">
-In this post, we’ll enrich the mutation table from the previous blog by integrating additional sample annotations and omics signatures. Using tidyverse tools, we’ll join…
-</a></div>
+<p>Now download more tables from DepMap 24Q4:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://plus.figshare.com/ndownloader/files/51065297"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"_data/Model.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(file_path)) {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">download.file</span>(url, file_path)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Model_anno <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(file_path, <span class="at">guess_max =</span> <span class="cn">Inf</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://plus.figshare.com/ndownloader/files/51065726"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"_data/OmicsSignatures.csv"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(file_path)) {</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">download.file</span>(url, file_path)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>Model_sigs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(file_path, <span class="at">guess_max =</span> <span class="cn">Inf</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Model_sigs)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"ModelID"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="metadata">
-<a href="./posts/8_Tidyverse_violin_plots/index.html" class="no-external">
-<div class="listing-date">
-Jun 18, 2025
+<p>Let’s now bring all these tables together for a comprehensive dataset. We’ll reshape the mutation table using <code>pivot_longer()</code> and <code>pivot_wider()</code> (instead of <code>t()</code>), then use <code>full_join()</code> from dplyr (instead of <code>merge()</code>) to combine everything into a single tidy data frame. This tidyverse-based workflow keeps things organized and makes downstream analysis and visualization much easier.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mutation_table <span class="ot">&lt;-</span> mutation_table <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">cols =</span> <span class="sc">-</span>HugoSymbol,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_to =</span> <span class="st">"Sample"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_to =</span> <span class="st">"Mutation"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"HugoSymbol"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">values_from =</span> <span class="st">"Mutation"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> Model_anno <span class="sc">%&gt;%</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">full_join</span>(Model_sigs,<span class="at">by=</span><span class="fu">c</span>(<span class="st">"ModelID"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">full_join</span>(mutation_table, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"ModelID"</span><span class="ot">=</span><span class="st">"Sample"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="VGlkeXZlcnNlJTJDRGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmc=" data-listing-date-sort="1747800000000" data-listing-file-modified-sort="1750273281970" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="827">
-<div class="thumbnail"><a href="./posts/7_Tidyverse_data_transform/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/7_Tidyverse_data_transform/index.html" class="no-external">Tidyverse: Transform data, mutation table to matrix</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('VGlkeXZlcnNl'); return false;">Tidyverse</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/7_Tidyverse_data_transform/index.html" class="no-external">
-Data manipulation is a very important skill which helps to organize your data into a desired format, making it easier to analyze and visualize. The Tidyverse is a collection…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/7_Tidyverse_data_transform/index.html" class="no-external">
-<div class="listing-date">
-May 21, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="VGlkeXZlcnNlJTJDRGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmc=" data-listing-date-sort="1746834300000" data-listing-file-modified-sort="1747881257826" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="811">
-<div class="thumbnail"><a href="./posts/5_Tidyverse_read_data/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\5_Tidyverse_read_data\images\paste-2.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/5_Tidyverse_read_data/index.html" class="no-external">Tidyverse: Read Data</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('VGlkeXZlcnNl'); return false;">Tidyverse</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/5_Tidyverse_read_data/index.html" class="no-external">
-Below is a summary of Tidyverse packages and their functions for importing data (by ChatGPT). Use this as a quick reference, and consult the official documentation or search…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/5_Tidyverse_read_data/index.html" class="no-external">
-<div class="listing-date">
-May 9, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="RGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmclMkNUaWR5dmVyc2U=" data-listing-date-sort="1746395700000" data-listing-file-modified-sort="1746844109201" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="157">
-<div class="thumbnail"><a href="./posts/4_Tidyverse_intro/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\4_Tidyverse_intro\images\paste-1.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/4_Tidyverse_intro/index.html" class="no-external">Tidyverse Introduction</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VGlkeXZlcnNl'); return false;">Tidyverse</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/4_Tidyverse_intro/index.html" class="no-external">
-There are many blogs or articles describing why using Tidyverse rather than the traditional R coding, for example
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/4_Tidyverse_intro/index.html" class="no-external">
-<div class="listing-date">
-May 4, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="Q2xhdWRlJTIwQ29kZQ==" data-listing-date-sort="1746382500000" data-listing-file-modified-sort="1746387295218" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="227">
-<div class="thumbnail"><a href="./posts/3_Claude_code_first_try/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\3_Claude_code_first_try\images\paste-1.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/3_Claude_code_first_try/index.html" class="no-external">Trying Claude Code</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Q2xhdWRlJTIwQ29kZQ=='); return false;">Claude Code</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/3_Claude_code_first_try/index.html" class="no-external">
-The other day I tried to install Claude Code and made a web app, it was fun. Here are my steps and take-aways:
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/3_Claude_code_first_try/index.html" class="no-external">
-<div class="listing-date">
-May 4, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="cm1hcmtkb3duJTJDUXVhcnRv" data-listing-date-sort="1746364500000" data-listing-file-modified-sort="1746381887400" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="541">
-<div class="thumbnail"><a href="./posts/2_Use_visual_edit_quarto/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\2_Use_visual_edit_quarto\images\paste-3.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2_Use_visual_edit_quarto/index.html" class="no-external">A few tips for Quarto</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cm1hcmtkb3du'); return false;">rmarkdown</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UXVhcnRv'); return false;">Quarto</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/2_Use_visual_edit_quarto/index.html" class="no-external">
-I know you like writing Markdowns in terminals, but sometimes a visual editor is helpful, for example:
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/2_Use_visual_edit_quarto/index.html" class="no-external">
-<div class="listing-date">
-May 4, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="UXVhcnRv" data-listing-date-sort="1746244800000" data-listing-file-modified-sort="1746380423992" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="448">
-<div class="thumbnail"><a href="./posts/1_First_test_post/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/1_First_test_post/index.html" class="no-external">Let me try Quarto and the first post</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UXVhcnRv'); return false;">Quarto</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/1_First_test_post/index.html" class="no-external">
-Today, I was thinking about how to organize my code snippets (in R or shell scripts) so I can quickly reuse them when needed. Of course, we have amazing AI tools like Claude…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/1_First_test_post/index.html" class="no-external">
-<div class="listing-date">
-May 3, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
+<p>Now that we have a combined table, let’s visualize the relationship between KMT2D mutation status and MSI score using violin and boxplots. This can help us see if MSI tumors have more mutations in genes like KMT2D. Here we use ggpubr, which is built on ggplot2 and makes publication-ready figures easier to create.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggpubr)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggviolin</span>(data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(mut.KMT2D)),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">x=</span><span class="st">"mut.KMT2D"</span>, <span class="at">y=</span><span class="st">"MSIScore"</span>, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">add=</span><span class="fu">c</span>(<span class="st">"boxplot"</span>), <span class="at">fill=</span><span class="st">"mut.KMT2D"</span>, </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">add.params =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">alpha=</span><span class="fl">0.5</span>), <span class="at">trim=</span>T) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stat_compare_means</span>(<span class="at">ref.group=</span><span class="st">"0"</span>, <span class="at">label =</span> <span class="st">"p.signif"</span>, <span class="at">show.legend=</span>F )  <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>( <span class="at">width=</span><span class="fl">0.2</span>, <span class="at">height=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
 </div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+<p>One quick note: While ggpubr offers an add = “jitter” option for adding jittered points to your plots, in this example I used geom_jitter() from ggplot2 directly. Both approaches work, but geom_jitter() provides a bit more flexibility if you want to customize the appearance of the points, especially in this case I do not want to jitter on y-axis.</p>
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
