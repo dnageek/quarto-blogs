@@ -91,3 +91,10 @@ ggviolin(data %>% filter(!is.na(mut.KMT2D)),
 ```
 
 One quick note: While `ggpubr` offers an `add = "jitter"` option for adding jittered points to your plots, in this example I used `geom_jitter()` from `ggplot2` directly. Both approaches work, but `geom_jitter()` provides a bit more flexibility if you want to customize the appearance of the points, especially in this case I do not want to jitter on y-axis.
+
+Again, we save this data frame in a RDS file for later use
+
+```{r}
+saveRDS(data, here("_data/combined_data.rds"))
+
+```

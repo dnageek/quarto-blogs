@@ -1,0 +1,70 @@
+---
+title: "Basic Random Forest"
+author: "Jie Wu"
+draft: false
+date: "2025-06-19"
+format: 
+    html:
+        toc: true
+        toc-depth: 2
+        code-fold: false
+categories: ["Machine Learning", "Data Science", "R Programming"]
+---
+
+In this post, let's run a quick random forest to find most important features that can predict WGD status. We first load the data frame from last post:
+
+```{r}
+#| message: false
+#| warning: false
+# Load all packages
+require(tidyverse)
+require(here)
+require(randomForest)
+
+# Load the mutation table from the RDS file saved in the last post
+data <- readRDS(here("_data/combined_data.rds"))
+
+
+```
+
+Rather than training the random forest on all genes, we'll focus on a curated subset to improve relevance and efficiency. We'll use the MSK-IMPACT genes annoatated in OncoKB, a widely recognized resource that provides a high-confidence list of cancer-associated genes. This targeted approach streamlines computation and enhances interpretability by concentrating on genes most likely to impact our analysis.
+
+```{r}
+#| message: false
+#| warning: false
+file_path <- here("_data/cancerGeneList.tsv")
+
+Gene_anno <- read_tsv(file_path, guess_max = Inf)
+
+# pull genes in MSK-IMPACT panel 
+
+MSK_genes <- Gene_anno %>% filter(`MSK-IMPACT` == "Yes") %>%
+            pull(`Hugo Symbol`) %>% unique()
+
+```
+
+Now select genes in this list and make the data frame for random forest analysis
+
+```{r}
+#| message: false
+#| warning: false
+data_rf <- data %>% 
+        dplyr::select(any_of(paste0("mut.", MSK_genes)),
+                                    WGD) %>%
+                filter(! is.na(WGD))
+
+# remove "-" from names to avoid errors running RF               
+names(data_rf) <- gsub("-", "", names(data_rf))
+
+set.seed(23)
+rf <- randomForest(as.factor(WGD) ~ ., 
+            data_rf )
+
+varImpPlot(rf, n.var = 20)
+print(rf)
+
+```
+
+It's not surprising that TP53 mutation shows a strong association with WGD status in the results.
+
+In the next post, we'll use the `caret` package to perform more standardized machine learning workflows.
