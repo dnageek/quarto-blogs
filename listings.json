@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/9_randomforest/index.html",
       "/posts/8_Tidyverse_violin_plots/index.html",
       "/posts/7_Tidyverse_data_transform/index.html",
       "/posts/5_Tidyverse_read_data/index.html",

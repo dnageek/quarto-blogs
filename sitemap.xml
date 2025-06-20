@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://dnageek.github.io/quarto-blogs/posts/8_Tidyverse_violin_plots/index.html</loc>
-    <lastmod>2025-06-19T03:17:47.784Z</lastmod>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/9_randomforest/index.html</loc>
+    <lastmod>2025-06-20T01:37:15.273Z</lastmod>
   </url>
   <url>
-    <loc>https://dnageek.github.io/quarto-blogs/posts/4_Tidyverse_intro/index.html</loc>
-    <lastmod>2025-05-10T02:28:29.201Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dnageek.github.io/quarto-blogs/posts/2_Use_visual_edit_quarto/index.html</loc>
-    <lastmod>2025-05-04T18:04:47.400Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dnageek.github.io/quarto-blogs/index.html</loc>
-    <lastmod>2025-05-05T03:47:07.084Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dnageek.github.io/quarto-blogs/about.html</loc>
-    <lastmod>2025-05-04T18:27:33.150Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dnageek.github.io/quarto-blogs/posts/1_First_test_post/index.html</loc>
-    <lastmod>2025-05-04T17:40:23.992Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dnageek.github.io/quarto-blogs/posts/3_Claude_code_first_try/index.html</loc>
-    <lastmod>2025-05-04T19:34:55.218Z</lastmod>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/7_Tidyverse_data_transform/index.html</loc>
+    <lastmod>2025-06-18T19:01:21.970Z</lastmod>
   </url>
   <url>
     <loc>https://dnageek.github.io/quarto-blogs/posts/5_Tidyverse_read_data/index.html</loc>
     <lastmod>2025-05-22T02:34:17.826Z</lastmod>
   </url>
   <url>
-    <loc>https://dnageek.github.io/quarto-blogs/posts/7_Tidyverse_data_transform/index.html</loc>
-    <lastmod>2025-06-18T19:01:21.970Z</lastmod>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/3_Claude_code_first_try/index.html</loc>
+    <lastmod>2025-05-04T19:34:55.218Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/1_First_test_post/index.html</loc>
+    <lastmod>2025-05-04T17:40:23.992Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dnageek.github.io/quarto-blogs/about.html</loc>
+    <lastmod>2025-05-04T18:27:33.150Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dnageek.github.io/quarto-blogs/index.html</loc>
+    <lastmod>2025-05-05T03:47:07.084Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/2_Use_visual_edit_quarto/index.html</loc>
+    <lastmod>2025-05-04T18:04:47.400Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/4_Tidyverse_intro/index.html</loc>
+    <lastmod>2025-05-10T02:28:29.201Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dnageek.github.io/quarto-blogs/posts/8_Tidyverse_violin_plots/index.html</loc>
+    <lastmod>2025-06-20T01:37:45.695Z</lastmod>
   </url>
 </urlset>
