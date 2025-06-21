@@ -1,0 +1,15 @@
+{
+  "hash": "f54083d6d1a9de5d9cd8ee33e65e4cd7",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Tidyverse: Reading Complex Data Formats\"\nauthor: \"Jie Wu\"\ndraft: true\ndate: \"2025-05-10T19:45:00\"\nformat: \n    html:\n        toc: true\n        toc-depth: 2\n        code-fold: false\ncategories: [\"Tidyverse\", \"Data Science\", \"R Programming\"]\n---\n\nIn the previous post, we explored how to read standard TSV and CSV files. This time, let's tackle something more complex: reading and processing XML files. While XML is less common than CSV or TSV in genomics and bioinformatics, it is still used in some resources. For example, [Cellosaurus](https://www.cellosaurus.org/) provides comprehensive cell line annotations in XML format. In this post, we'll use the `xml2` package from the Tidyverse to parse and transform this XML data into a usable data frame.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nrequire(xml2)\nrequire(dplyr)\nrequire(here)\n\n# find this url on Cellosaurus website\nurl <- \"https://ftp.expasy.org/databases/cellosaurus/cellosaurus.xml\"\n\nfile_path <- here(\"_data/cellosaurus.xml\")\n\n# network may be slow, so set the timeout longer\noptions(timeout = max(300, getOption(\"timeout\")))\n\nif (!file.exists(file_path)) {\n    download.file(url, file_path)\n}\n\ncellosaurus_data <- read_xml(file_path)\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

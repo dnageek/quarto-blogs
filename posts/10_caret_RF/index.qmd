@@ -1,0 +1,115 @@
+---
+title: "Random Forest with Caret"
+author: "Jie Wu"
+draft: false
+date: "2025-06-20"
+format: 
+    html:
+        toc: true
+        toc-depth: 2
+        code-fold: false
+categories: ["Machine Learning", "Data Science", "R Programming"]
+---
+
+In this post, we will use the `caret` package to implement a more standardized machine learning workflow. 
+
+The `caret` (Classification And REgression Training) package in R is a comprehensive toolkit for building, evaluating, and tuning machine learning models. It provides a unified interface to hundreds of algorithms, streamlines data preprocessing, supports resampling methods, and simplifies model comparison. By standardizing workflows, `caret` makes it easier to develop robust and reproducible predictive models in R. 
+
+Let's load the prepare the data table again:
+
+```{r}
+#| message: false
+#| warning: false
+# Load all packages
+require(tidyverse)
+require(here)
+require(caret) 
+
+# Load the mutation table from the RDS file saved in the last post
+data <- readRDS(here("_data/combined_data.rds"))
+
+file_path <- here("_data/cancerGeneList.tsv")
+
+Gene_anno <- read_tsv(file_path, guess_max = Inf)
+
+# pull genes in MSK-IMPACT panel 
+
+MSK_genes <- Gene_anno %>% filter(`MSK-IMPACT` == "Yes") %>%
+            pull(`Hugo Symbol`) %>% unique()
+
+data_rf <- data %>% 
+        dplyr::select(any_of(paste0("mut.", MSK_genes)),
+                                    WGD) %>%
+                filter(! is.na(WGD))
+
+# remove "-" from names to avoid errors running RF               
+names(data_rf) <- gsub("-", "", names(data_rf))
+
+data_rf <- data_rf %>% mutate(WGD = as.factor(WGD))
+
+```
+
+`caret` has handy functions to create training and test sets easily. We can use the `createDataPartition()` function to split our data into training and testing sets while preserving the class distribution of the target variable. We can then use `trainControl()` to set up cross-validation parameteres. 
+
+Here's how we can do it: (The training will take a while)
+
+
+```{r}
+#| message: false
+#| warning: false
+
+set.seed(23)
+train_idx <- createDataPartition(data_rf$WGD, p = 0.8, list = FALSE)
+train_data <- data_rf[train_idx, ]
+test_data <- data_rf[-train_idx, ]
+
+# Set up cross-validation
+ctrl <- trainControl(method = "cv", number = 10)
+
+rf_model <- train(
+    WGD ~ .,
+    data = train_data,
+    method = "rf",
+    trControl = ctrl,
+    importance = TRUE
+)
+
+
+print(rf_model)
+
+randomForest::varImpPlot(rf_model$finalModel, n.var=10)
+
+# Predict on test set
+rf_pred <- predict(rf_model, newdata = test_data)
+
+confusionMatrix(rf_pred, test_data$WGD)
+
+
+```
+
+Let's take a look at top features, we use `ComplexHeatmap`, which is my favorite heatmap package. We only use a subset of the cell lines for better visualiztion.
+
+```{r}
+
+topfeatures <- 
+    randomForest::importance(rf_model$finalModel)  %>% 
+    as.data.frame() %>% 
+    arrange(-`0`) %>% 
+    head(10)  %>% 
+    row.names()
+
+require(ComplexHeatmap)
+
+
+Heatmap(
+    data_rf %>% arrange(WGD) %>% dplyr::select(topfeatures),
+    left_annotation = HeatmapAnnotation(
+        df = (data_rf %>% arrange(WGD) %>% dplyr::select(WGD)),
+        which = "row"
+    ),
+    cluster_rows = FALSE,
+    border = FALSE,
+    col = c("0" = "white", "1" = "red")
+)
+
+```

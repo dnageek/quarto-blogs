@@ -1,0 +1,17 @@
+{
+  "hash": "08e25ed59bcd474ac6b7f9567ee56681",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Basic Random Forest\"\nauthor: \"Jie Wu\"\ndraft: false\ndate: \"2025-06-19\"\nformat: \n    html:\n        toc: true\n        toc-depth: 2\n        code-fold: false\ncategories: [\"Machine Learning\", \"Data Science\", \"R Programming\"]\n---\n\nIn this post, let's run a quick random forest to find most important features that can predict WGD status. We first load the data frame from last post:\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Load all packages\nrequire(tidyverse)\nrequire(here)\nrequire(randomForest)\n\n# Load the mutation table from the RDS file saved in the last post\ndata <- readRDS(here(\"_data/combined_data.rds\"))\n```\n:::\n\n\nRather than training the random forest on all genes, we'll focus on a curated subset to improve relevance and efficiency. We'll use the MSK-IMPACT genes annoatated in OncoKB, a widely recognized resource that provides a high-confidence list of cancer-associated genes. This targeted approach streamlines computation and enhances interpretability by concentrating on genes most likely to impact our analysis.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nfile_path <- here(\"_data/cancerGeneList.tsv\")\n\nGene_anno <- read_tsv(file_path, guess_max = Inf)\n\n# pull genes in MSK-IMPACT panel \n\nMSK_genes <- Gene_anno %>% filter(`MSK-IMPACT` == \"Yes\") %>%\n            pull(`Hugo Symbol`) %>% unique()\n```\n:::\n\n\nNow select genes in this list and make the data frame for random forest analysis\n\n\n::: {.cell}\n\n```{.r .cell-code}\ndata_rf <- data %>% \n        dplyr::select(any_of(paste0(\"mut.\", MSK_genes)),\n                                    WGD) %>%\n                filter(! is.na(WGD))\n\n# remove \"-\" from names to avoid errors running RF               \nnames(data_rf) <- gsub(\"-\", \"\", names(data_rf))\n\nset.seed(23)\nrf <- randomForest(as.factor(WGD) ~ ., \n            data_rf )\n\nvarImpPlot(rf, n.var = 20)\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n\n```{.r .cell-code}\nprint(rf)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n\nCall:\n randomForest(formula = as.factor(WGD) ~ ., data = data_rf) \n               Type of random forest: classification\n                     Number of trees: 500\nNo. of variables tried at each split: 21\n\n        OOB estimate of  error rate: 29.93%\nConfusion matrix:\n    0   1 class.error\n0 302 243   0.4458716\n1 238 824   0.2241055\n```\n\n\n:::\n:::\n\n\nIt's not surprising that TP53 mutation shows a strong association with WGD status in the results.\n\nIn the next post, we'll use the `caret` package to perform more standardized machine learning workflows.\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
