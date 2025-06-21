@@ -90,6 +90,8 @@ confusionMatrix(rf_pred, test_data$WGD)
 Let's take a look at top features, we use `ComplexHeatmap`, which is my favorite heatmap package. We only use a subset of the cell lines for better visualiztion.
 
 ```{r}
+#| message: false
+#| warning: false
 
 topfeatures <- 
     randomForest::importance(rf_model$finalModel)  %>% 

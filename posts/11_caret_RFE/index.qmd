@@ -1,0 +1,90 @@
+---
+title: "Recursive Feature Elimination with Caret"
+author: "Jie Wu"
+draft: false
+date: "2025-06-21"
+format: 
+    html:
+        toc: true
+        toc-depth: 2
+        code-fold: false
+categories: ["Machine Learning", "Data Science", "R Programming"]
+---
+
+In this post, we will do something slightly more complicated with `caret`. Recursive Feature Elimination (RFE) is a feature selection technique that recursively removes less important features and builds models on the remaining subset of features. The goal is to identify the most relevant features that contribute to the predictive performance of the model. 
+
+The first section of the code will be the same:
+
+```{r}
+#| message: false
+#| warning: false
+# Load all packages
+require(tidyverse)
+require(here)
+require(caret) 
+require(randomForest)
+
+# Load the mutation table from the RDS file saved in the last post
+data <- readRDS(here("_data/combined_data.rds"))
+
+file_path <- here("_data/cancerGeneList.tsv")
+
+Gene_anno <- read_tsv(file_path, guess_max = Inf)
+
+# pull genes in MSK-IMPACT panel 
+
+MSK_genes <- Gene_anno %>% filter(`MSK-IMPACT` == "Yes") %>%
+            pull(`Hugo Symbol`) %>% unique()
+
+data_rf <- data %>% 
+        dplyr::select(any_of(paste0("mut.", MSK_genes)),
+                                    WGD) %>%
+                filter(! is.na(WGD))
+
+# remove "-" from names to avoid errors running RF               
+names(data_rf) <- gsub("-", "", names(data_rf))
+
+data_rf <- data_rf %>% mutate(WGD = as.factor(WGD))
+
+```
+
+Let's now run RFE, still with Ramdom Forests. It will take a while too...
+
+
+```{r}
+#| message: false
+#| warning: false
+
+set.seed(23)
+train_idx <- createDataPartition(data_rf$WGD, p = 0.8, list = FALSE)
+train_data <- data_rf[train_idx, ]
+test_data <- data_rf[-train_idx, ]
+
+# Set up RFE
+rfe_control <-rfeControl(functions = rfFuncs, 
+                   method = "repeatedcv", 
+                   number = 10,
+                   repeats = 3,
+                   verbose = FALSE)
+
+rfe_result <- rfe(
+  x = train_data %>% dplyr::select(-WGD),
+  y = train_data$WGD,
+  sizes = c(5,10,20,30,40,50,100), 
+  rfeControl = rfe_control )
+
+print(rfe_result)
+
+rfe_final_model <- rfe_result$fit
+
+varImpPlot(rfe_final_model, n.var=15)
+
+# Predict on test set
+rf_pred <- predict(rfe_final_model, newdata = test_data)
+
+confusionMatrix(rf_pred, test_data$WGD)
+
+
+```
+
+Apparently, using all features to build a model is not ideal and likely to be overfitting. But as a toy example, we can see the top feature is mut.TP53, which has been reported to be associated with WGD status.
