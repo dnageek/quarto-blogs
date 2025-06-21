@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jie Wu">
+<meta name="dcterms.date" content="2025-06-21">
 
-<title>DNA-Geek’s Playground</title>
+<title>Recursive Feature Elimination with Caret – DNA-Geek’s Playground</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,32 +22,65 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-748b535e376f14d4692bf2b2e5fd6380.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-cc63fce9873912f1bbbccf05079cc9ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-08799928d293638fe9563d5c5a2794e5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-cc63fce9873912f1bbbccf05079cc9ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-748b535e376f14d4692bf2b2e5fd6380.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-cc63fce9873912f1bbbccf05079cc9ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-08799928d293638fe9563d5c5a2794e5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-cc63fce9873912f1bbbccf05079cc9ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,35 +108,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <!-- Google tag (gtag.js) -->
 
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BTXN919NM0"></script>
@@ -120,37 +126,8 @@ ul.task-list li input[type="checkbox"] {
 
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -321,7 +298,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DNA-Geek’s Playground</span>
     </a>
   </div>
@@ -332,7 +309,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -356,373 +333,173 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">DNA-Geek’s Playground</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Recursive Feature Elimination with Caret</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Machine Learning</div>
+                <div class="quarto-category">Data Science</div>
+                <div class="quarto-category">R Programming</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Jie Wu </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 21, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(10)</span></div><div class="category" data-category="Q2xhdWRlJTIwQ29kZQ==">Claude Code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YSUyMFNjaWVuY2U=">Data Science <span class="quarto-category-count">(7)</span></div><div class="category" data-category="TWFjaGluZSUyMExlYXJuaW5n">Machine Learning <span class="quarto-category-count">(3)</span></div><div class="category" data-category="UXVhcnRv">Quarto <span class="quarto-category-count">(2)</span></div><div class="category" data-category="UiUyMFByb2dyYW1taW5n">R Programming <span class="quarto-category-count">(7)</span></div><div class="category" data-category="cm1hcmtkb3du">rmarkdown <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGlkeXZlcnNl">Tidyverse <span class="quarto-category-count">(4)</span></div></div></div>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
 
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="TWFjaGluZSUyMExlYXJuaW5nJTJDRGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmc=" data-listing-date-sort="1750478400000" data-listing-file-modified-sort="1750533103739" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="416">
-<div class="thumbnail"><a href="./posts/11_caret_RFE/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\11_caret_RFE\index_files\figure-html\unnamed-chunk-2-1.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/11_caret_RFE/index.html" class="no-external">Recursive Feature Elimination with Caret</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('TWFjaGluZSUyMExlYXJuaW5n'); return false;">Machine Learning</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
+<p>In this post, we will do something slightly more complicated with <code>caret</code>. Recursive Feature Elimination (RFE) is a feature selection technique that recursively removes less important features and builds models on the remaining subset of features. The goal is to identify the most relevant features that contribute to the predictive performance of the model.</p>
+<p>The first section of the code will be the same:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load all packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(here)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(caret) </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(randomForest)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the mutation table from the RDS file saved in the last post</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"_data/combined_data.rds"</span>))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"_data/cancerGeneList.tsv"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Gene_anno <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(file_path, <span class="at">guess_max =</span> <span class="cn">Inf</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># pull genes in MSK-IMPACT panel </span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>MSK_genes <span class="ot">&lt;-</span> Gene_anno <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="st">`</span><span class="at">MSK-IMPACT</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Yes"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>            <span class="fu">pull</span>(<span class="st">`</span><span class="at">Hugo Symbol</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>data_rf <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">any_of</span>(<span class="fu">paste0</span>(<span class="st">"mut."</span>, MSK_genes)),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                                    WGD) <span class="sc">%&gt;%</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                <span class="fu">filter</span>(<span class="sc">!</span> <span class="fu">is.na</span>(WGD))</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># remove "-" from names to avoid errors running RF               </span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_rf) <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"-"</span>, <span class="st">""</span>, <span class="fu">names</span>(data_rf))</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>data_rf <span class="ot">&lt;-</span> data_rf <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">WGD =</span> <span class="fu">as.factor</span>(WGD))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="delink listing-description"><a href="./posts/11_caret_RFE/index.html" class="no-external">
-In this post, we will do something slightly more complicated with <code>caret</code>. Recursive Feature Elimination (RFE) is a feature selection technique that recursively removes less…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/11_caret_RFE/index.html" class="no-external">
-<div class="listing-date">
-Jun 21, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="TWFjaGluZSUyMExlYXJuaW5nJTJDRGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmc=" data-listing-date-sort="1750392000000" data-listing-file-modified-sort="1750524050119" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="492">
-<div class="thumbnail"><a href="./posts/10_caret_RF/index.html" class="no-external">
+<p>Let’s now run RFE, still with Ramdom Forests. It will take a while too…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">23</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>train_idx <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(data_rf<span class="sc">$</span>WGD, <span class="at">p =</span> <span class="fl">0.8</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> data_rf[train_idx, ]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> data_rf[<span class="sc">-</span>train_idx, ]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up RFE</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>rfe_control <span class="ot">&lt;-</span><span class="fu">rfeControl</span>(<span class="at">functions =</span> rfFuncs, </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">method =</span> <span class="st">"repeatedcv"</span>, </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">number =</span> <span class="dv">10</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">repeats =</span> <span class="dv">3</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>rfe_result <span class="ot">&lt;-</span> <span class="fu">rfe</span>(</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> train_data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>WGD),</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> train_data<span class="sc">$</span>WGD,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">sizes =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">100</span>), </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">rfeControl =</span> rfe_control )</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rfe_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Recursive feature selection
 
-<p class="card-img-top"><img src="posts\10_caret_RF\index_files\figure-html\unnamed-chunk-2-1.png"  class="thumbnail-image card-img"/></p>
+Outer resampling method: Cross-Validated (10 fold, repeated 3 times) 
 
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/10_caret_RF/index.html" class="no-external">Random Forest with Caret</a>
-</h3>
-<div class="listing-categories">
+Resampling performance over subset size:
 
-<div class="listing-category" onclick="window.quartoListingCategory('TWFjaGluZSUyMExlYXJuaW5n'); return false;">Machine Learning</div>
+ Variables Accuracy   Kappa AccuracySD KappaSD Selected
+         5   0.6578 0.09567    0.02716 0.09121         
+        10   0.6620 0.23667    0.03135 0.10668         
+        20   0.6825 0.30673    0.04058 0.09377         
+        30   0.6897 0.32485    0.04305 0.09323         
+        40   0.6931 0.32918    0.04620 0.09903         
+        50   0.6967 0.33438    0.04392 0.09383         
+       100   0.6993 0.33601    0.04499 0.09349         
+       475   0.7089 0.35307    0.04247 0.08988        *
 
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
+The top 5 variables (out of 475):
+   mut.TP53, mut.ID3, mut.NF1, mut.CCND3, mut.ASXL1</code></pre>
 </div>
-<div class="delink listing-description"><a href="./posts/10_caret_RF/index.html" class="no-external">
-In this post, we will use the <code>caret</code> package to implement a more standardized machine learning workflow.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/10_caret_RF/index.html" class="no-external">
-<div class="listing-date">
-Jun 20, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="TWFjaGluZSUyMExlYXJuaW5nJTJDRGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmc=" data-listing-date-sort="1750305600000" data-listing-file-modified-sort="1750383435273" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="307">
-<div class="thumbnail"><a href="./posts/9_randomforest/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\9_randomforest\index_files\figure-html\unnamed-chunk-3-1.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/9_randomforest/index.html" class="no-external">Basic Random Forest</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('TWFjaGluZSUyMExlYXJuaW5n'); return false;">Machine Learning</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/9_randomforest/index.html" class="no-external">
-In this post, let’s run a quick random forest to find most important features that can predict WGD status. We first load the data frame from last post:
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/9_randomforest/index.html" class="no-external">
-<div class="listing-date">
-Jun 19, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rfe_final_model <span class="ot">&lt;-</span> rfe_result<span class="sc">$</span>fit</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(rfe_final_model, <span class="at">n.var=</span><span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="VGlkeXZlcnNlJTJDRGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmc=" data-listing-date-sort="1750219200000" data-listing-file-modified-sort="1750383465695" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="442">
-<div class="thumbnail"><a href="./posts/8_Tidyverse_violin_plots/index.html" class="no-external">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test set</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>rf_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(rfe_final_model, <span class="at">newdata =</span> test_data)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(rf_pred, test_data<span class="sc">$</span>WGD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix and Statistics
 
-<p class="card-img-top"><img src="posts\8_Tidyverse_violin_plots\index_files\figure-html\unnamed-chunk-4-1.png"  class="thumbnail-image card-img"/></p>
+          Reference
+Prediction   0   1
+         0  47  39
+         1  62 173
+                                          
+               Accuracy : 0.6854          
+                 95% CI : (0.6315, 0.7358)
+    No Information Rate : 0.6604          
+    P-Value [Acc &gt; NIR] : 0.18874         
+                                          
+                  Kappa : 0.2606          
+                                          
+ Mcnemar's Test P-Value : 0.02859         
+                                          
+            Sensitivity : 0.4312          
+            Specificity : 0.8160          
+         Pos Pred Value : 0.5465          
+         Neg Pred Value : 0.7362          
+             Prevalence : 0.3396          
+         Detection Rate : 0.1464          
+   Detection Prevalence : 0.2679          
+      Balanced Accuracy : 0.6236          
+                                          
+       'Positive' Class : 0               
+                                          </code></pre>
+</div>
+</div>
+<p>Apparently, using all features to build a model is not ideal and likely to be overfitting. But as a toy example, we can see the top feature is mut.TP53, which has been reported to be associated with WGD status.</p>
 
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/8_Tidyverse_violin_plots/index.html" class="no-external">Tidyverse and ggpubr: Violin plots and more</a>
-</h3>
-<div class="listing-categories">
 
-<div class="listing-category" onclick="window.quartoListingCategory('VGlkeXZlcnNl'); return false;">Tidyverse</div>
 
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/8_Tidyverse_violin_plots/index.html" class="no-external">
-In this post, we’ll enrich the mutation table from the previous blog by integrating additional sample annotations and omics signatures. Using tidyverse tools, we’ll join…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/8_Tidyverse_violin_plots/index.html" class="no-external">
-<div class="listing-date">
-Jun 18, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="VGlkeXZlcnNlJTJDRGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmc=" data-listing-date-sort="1747800000000" data-listing-file-modified-sort="1750273281970" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="827">
-<div class="thumbnail"><a href="./posts/7_Tidyverse_data_transform/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/7_Tidyverse_data_transform/index.html" class="no-external">Tidyverse: Transform data, mutation table to matrix</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('VGlkeXZlcnNl'); return false;">Tidyverse</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/7_Tidyverse_data_transform/index.html" class="no-external">
-Data manipulation is a very important skill which helps to organize your data into a desired format, making it easier to analyze and visualize. The Tidyverse is a collection…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/7_Tidyverse_data_transform/index.html" class="no-external">
-<div class="listing-date">
-May 21, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="VGlkeXZlcnNlJTJDRGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmc=" data-listing-date-sort="1746834300000" data-listing-file-modified-sort="1747881257826" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="811">
-<div class="thumbnail"><a href="./posts/5_Tidyverse_read_data/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\5_Tidyverse_read_data\images\paste-2.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/5_Tidyverse_read_data/index.html" class="no-external">Tidyverse: Read Data</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('VGlkeXZlcnNl'); return false;">Tidyverse</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/5_Tidyverse_read_data/index.html" class="no-external">
-Below is a summary of Tidyverse packages and their functions for importing data (by ChatGPT). Use this as a quick reference, and consult the official documentation or search…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/5_Tidyverse_read_data/index.html" class="no-external">
-<div class="listing-date">
-May 9, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="RGF0YSUyMFNjaWVuY2UlMkNSJTIwUHJvZ3JhbW1pbmclMkNUaWR5dmVyc2U=" data-listing-date-sort="1746395700000" data-listing-file-modified-sort="1746844109201" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="157">
-<div class="thumbnail"><a href="./posts/4_Tidyverse_intro/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\4_Tidyverse_intro\images\paste-1.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/4_Tidyverse_intro/index.html" class="no-external">Tidyverse Introduction</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFNjaWVuY2U='); return false;">Data Science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiUyMFByb2dyYW1taW5n'); return false;">R Programming</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VGlkeXZlcnNl'); return false;">Tidyverse</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/4_Tidyverse_intro/index.html" class="no-external">
-There are many blogs or articles describing why using Tidyverse rather than the traditional R coding, for example
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/4_Tidyverse_intro/index.html" class="no-external">
-<div class="listing-date">
-May 4, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="Q2xhdWRlJTIwQ29kZQ==" data-listing-date-sort="1746382500000" data-listing-file-modified-sort="1746387295218" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="227">
-<div class="thumbnail"><a href="./posts/3_Claude_code_first_try/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\3_Claude_code_first_try\images\paste-1.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/3_Claude_code_first_try/index.html" class="no-external">Trying Claude Code</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Q2xhdWRlJTIwQ29kZQ=='); return false;">Claude Code</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/3_Claude_code_first_try/index.html" class="no-external">
-The other day I tried to install Claude Code and made a web app, it was fun. Here are my steps and take-aways:
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/3_Claude_code_first_try/index.html" class="no-external">
-<div class="listing-date">
-May 4, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-categories="cm1hcmtkb3duJTJDUXVhcnRv" data-listing-date-sort="1746364500000" data-listing-file-modified-sort="1746381887400" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="541">
-<div class="thumbnail"><a href="./posts/2_Use_visual_edit_quarto/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts\2_Use_visual_edit_quarto\images\paste-3.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2_Use_visual_edit_quarto/index.html" class="no-external">A few tips for Quarto</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cm1hcmtkb3du'); return false;">rmarkdown</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UXVhcnRv'); return false;">Quarto</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/2_Use_visual_edit_quarto/index.html" class="no-external">
-I know you like writing Markdowns in terminals, but sometimes a visual editor is helpful, for example:
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/2_Use_visual_edit_quarto/index.html" class="no-external">
-<div class="listing-date">
-May 4, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="9" data-categories="UXVhcnRv" data-listing-date-sort="1746244800000" data-listing-file-modified-sort="1746380423992" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="448">
-<div class="thumbnail"><a href="./posts/1_First_test_post/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/1_First_test_post/index.html" class="no-external">Let me try Quarto and the first post</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UXVhcnRv'); return false;">Quarto</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/1_First_test_post/index.html" class="no-external">
-Today, I was thinking about how to organize my code snippets (in R or shell scripts) so I can quickly reuse them when needed. Of course, we have amazing AI tools like Claude…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/1_First_test_post/index.html" class="no-external">
-<div class="listing-date">
-May 3, 2025
-</div>
-<div class="listing-author">
-Jie Wu
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

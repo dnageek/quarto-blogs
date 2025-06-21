@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/11_caret_RFE/index.html",
       "/posts/10_caret_RF/index.html",
       "/posts/9_randomforest/index.html",
       "/posts/8_Tidyverse_violin_plots/index.html",
