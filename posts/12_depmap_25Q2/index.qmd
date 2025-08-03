@@ -1,0 +1,87 @@
+---
+title: "DepMap 25Q2 Update"
+author: "Jie Wu"
+draft: false
+date: "2025-08-03"
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: false
+categories: ["Data Science", "R Programming"]
+tags: ["DepMap"]
+---
+
+DepMap has been updated to the latest version. See the [25Q2 release announcement](https://forum.depmap.org/t/announcing-the-25q2-release/4257) for details. This release includes several updates relevant to oncology biomarkers. 
+
+**Mutations:**
+
+- The minimum depth threshold for mutation calling has increased from 2 to 5, improving reliability.
+- Some mutations have been rescued:
+  - Previous versions had incorrect gene symbols assigned.
+  - Quality control (QC) procedures have been updated.
+- Oncogene and tumor suppressor gene lists have been updated based on OncoKB. The pipeline now uses a newer version of VEP with updated gnomAD data.
+
+**CNVs:**
+
+- More WGS data: it seems that Broad is updating WGS workflows which should be better at CNV calling. Looking forward to new update in 25Q4 regarding this
+- Trasition period means analysis on CNVs may need to stick to older release or some careful adjustments may be needed
+
+**Gene Expression:**
+
+- switched to Salmon from RSEM for TPMs
+- Counts are now from STAR
+- default entry flag has been added for models with multiple datasets- 
+
+**Other updates:**
+
+The release note also mentioned that there is a new column of PediatricModelType. First let's compare to older release to see what new cell lines were added. 
+
+```{r}
+#| code-fold: true
+#| message: false
+#| warning: false
+# Load all packages
+require(readr)
+require(dplyr)
+require(here)
+
+model_25Q2_file  <- here("_data/25Q2/Model.csv")
+model_24Q4_file  <- here("_data/24Q4/Model.csv")
+
+model_25Q2 <- read_csv(model_25Q2_file)
+model_24Q4 <- read_csv(model_24Q4_file)
+
+
+library(ggplot2)
+
+# Visualize AgeCategory vs Sex as a pie chart
+# Find overlapping model_ids
+overlap_ids <- intersect(model_25Q2$ModelID, model_24Q4$ModelID)
+
+# Compare counts
+cat("Number of overlapping Models between 25Q2 and 24Q4", length(overlap_ids), "\n")
+
+cat ("And these are the unique cell lines in 25Q2:")
+
+model_25Q2 %>% filter(! ModelID %in% overlap_ids) %>% pull(StrippedCellLineName)
+
+cat ("check distribution of the Pediatric models")
+
+# Distribution of OncotreePrimaryDisease for PediatricModelType == "F"
+pediatric_dist <- model_25Q2 %>%
+  filter(PediatricModelType == TRUE) %>%
+  count(OncotreePrimaryDisease, sort = TRUE)
+
+print(pediatric_dist)
+
+# visualize as bar plot
+ggplot(pediatric_dist, aes(x = reorder(OncotreePrimaryDisease, n), y = n)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() +
+  labs(title = "Distribution of OncotreePrimaryDisease (PediatricModelType == F)",
+       x = "OncotreePrimaryDisease", y = "Count")
+
+```
+
+As always, it is great to have improved DepMap database every quarter, especially this time there are more efforts on WGS and pediatric models. Time to update your local database to reflect the changes!

@@ -1,0 +1,17 @@
+{
+  "hash": "962c6e9deb2f48a8cb7e98900770db46",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"DepMap 25Q2 Update\"\nauthor: \"Jie Wu\"\ndraft: true\ndate: \"2025-08-03\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: false\ncategories: [\"Data Science\", \"R Programming\"]\ntags: [\"DepMap\"]\n---\n\nDepMap has been updated to the latest version. See the [25Q2 release announcement](https://forum.depmap.org/t/announcing-the-25q2-release/4257) for details. This release includes several updates relevant to oncology biomarkers. \n\n**Mutations:**\n\n- The minimum depth threshold for mutation calling has increased from 2 to 5, improving reliability.\n- Some mutations have been rescued:\n  - Previous versions had incorrect gene symbols assigned.\n  - Quality control (QC) procedures have been updated.\n- Oncogene and tumor suppressor gene lists have been updated based on OncoKB. The pipeline now uses a newer version of VEP with updated gnomAD data.\n\n**CNVs:**\n\n- More WGS data: it seems that Broad is updating WGS workflows which should be better at CNV calling. Looking forward to new update in 25Q4 regarding this\n- Trasition period means analysis on CNVs may need to stick to older release or some careful adjustments may be needed\n\n**Gene Expression:**\n\n- switched to Salmon from RSEM for TPMs\n- Counts are now from STAR\n- default entry flag has been added for models with multiple datasets- \n\n**Other updates:**\n\nThe release note also mentioned that there is a new column of PediatricModelType\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Load all packages\nrequire(readr)\nrequire(dplyr)\nrequire(here)\n\nmodel_25Q2_file  <- here(\"_data/25Q2/Model.csv\")\nmodel_24Q4_file  <- here(\"_data/24Q4/Model.csv\")\n\nmodel_25Q2 <- read_csv(model_25Q2_file)\nmodel_24Q4 <- read_csv(model_24Q4_file)\n\n\nlibrary(ggplot2)\n\n# Visualize AgeCategory vs Sex as a pie chart\n# Find overlapping model_ids\noverlap_ids <- intersect(model_25Q2$ModelID, model_24Q4$ModelID)\n\n# Compare counts\ncat(\"Number of overlapping model_ids:\", length(overlap_ids), \"\\n\")\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\nNumber of overlapping model_ids: 2105 \n```\n\n\n:::\n\n```{.r .cell-code}\nmodel_25Q2 %>% filter(! ModelID %in% overlap_ids) %>% pull(StrippedCellLineName)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n [1] \"HEK293\"     \"HDMB03\"     \"SUDHL2\"     \"DL221\"      \"OSUDES23\"  \n [6] \"CHLA02ATRT\" \"CHLA01RMED\" \"NRHGCT1\"    \"HBEC3KT\"    \"Het1A\"     \n[11] \"HuLaPC\"    \n```\n\n\n:::\n:::\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
