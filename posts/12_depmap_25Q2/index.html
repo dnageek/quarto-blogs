@@ -377,30 +377,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>DepMap has been updated to the latest version. See the <a href="https://forum.depmap.org/t/announcing-the-25q2-release/4257">25Q2 release announcement</a> for details. This release includes several updates relevant to oncology biomarkers.</p>
+<p>DepMap just released a new version. See the <a href="https://forum.depmap.org/t/announcing-the-25q2-release/4257">25Q2 release announcement</a> for details. This release includes several updates relevant to oncology biomarkers.</p>
 <p><strong>Mutations:</strong></p>
 <ul>
-<li>The minimum depth threshold for mutation calling has increased from 2 to 5, improving reliability.</li>
+<li>The minimum depth threshold for mutation calling has increased from 2 to 5 (the older threshold suprised me a little)</li>
 <li>Some mutations have been rescued:
 <ul>
 <li>Previous versions had incorrect gene symbols assigned.</li>
 <li>Quality control (QC) procedures have been updated.</li>
 </ul></li>
-<li>Oncogene and tumor suppressor gene lists have been updated based on OncoKB. The pipeline now uses a newer version of VEP with updated gnomAD data.</li>
+<li>Oncogene and tumor suppressor gene lists have been updated based on OncoKB. The pipeline now uses a newer version of VEP with updated gnomAD data too.</li>
 </ul>
 <p><strong>CNVs:</strong></p>
 <ul>
 <li>More WGS data: it seems that Broad is updating WGS workflows which should be better at CNV calling. Looking forward to new update in 25Q4 regarding this</li>
-<li>Trasition period means analysis on CNVs may need to stick to older release or some careful adjustments may be needed</li>
+<li>Transition period means analysis on CNVs may need to stick to older release or some careful adjustments may be needed</li>
 </ul>
 <p><strong>Gene Expression:</strong></p>
 <ul>
-<li>switched to Salmon from RSEM for TPMs</li>
+<li>Switched to Salmon from RSEM for TPMs</li>
 <li>Counts are now from STAR</li>
-<li>default entry flag has been added for models with multiple datasets-</li>
+<li>Default entry flag has been added for models with multiple datasets</li>
 </ul>
 <p><strong>Other updates:</strong></p>
-<p>The release note also mentioned that there is a new column of PediatricModelType. First let’s compare to older release to see what new cell lines were added.</p>
+<p>The release note also mentioned that there is a new column of PediatricModelType.</p>
+<p>First let’s compare to older release to see what new cell lines were added.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
